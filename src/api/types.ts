@@ -7,7 +7,9 @@ export interface ReqPage {
 // * 分页响应参数
 export interface PageRes<T> {
   records: T[]
-  pageNum?: number
-  pageSize?: number
+  // 当前页
+  current?: number
+  // 每页显示条数
+  size?: number
   total: number
 }
