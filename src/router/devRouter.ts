@@ -27,21 +27,50 @@ import { RouteRecordRaw } from 'vue-router'
 const LAYOUT = () => import('@/layouts/index.vue')
 export const devRoutes: RouteRecordRaw[] = [
   {
-    name: 'luckyMoney',
-    path: '/luckyMoney',
+    name: 'apartmentManagement',
+    path: '/apartmentManagement',
     component: LAYOUT,
-    redirect: '/luckyMoney/luckyMoneyList',
+    redirect: '/apartmentManagement/apartmentManagement',
     meta: {
-      title: '活动配置',
+      title: '公寓管理',
       icon: 'UserFilled',
     },
     children: [
       {
-        name: 'luckyMoney/luckyMoneyList',
-        path: '/luckyMoney/luckyMoneyList',
-        component: () => import('@/views/luckyMoney/luckyMoney.vue'),
+        name: 'apartmentManagement/apartmentManagement',
+        path: '/apartmentManagement/apartmentManagement',
+        component: () =>
+          import(
+            '@/views/apartmentManagement/apartmentManagement/apartmentManagement.vue'
+          ),
         meta: {
-          title: '活动列表',
+          title: '公寓管理',
+          icon: 'UserFilled',
+        },
+        children: [],
+      },
+      {
+        name: 'apartmentManagement/roomManagement',
+        path: '/apartmentManagement/roomManagement',
+        component: () =>
+          import(
+            '@/views/apartmentManagement/roomManagement/roomManagement.vue'
+          ),
+        meta: {
+          title: '房间管理',
+          icon: 'UserFilled',
+        },
+        children: [],
+      },
+      {
+        name: 'apartmentManagement/attributeManagement',
+        path: '/apartmentManagement/attributeManagement',
+        component: () =>
+          import(
+            '@/views/apartmentManagement/attributeManagement/attributeManagement.vue'
+          ),
+        meta: {
+          title: '属性管理',
           icon: 'UserFilled',
         },
         children: [],
