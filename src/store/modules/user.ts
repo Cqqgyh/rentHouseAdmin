@@ -6,7 +6,7 @@
  * @Description: 用户store
  */
 import { defineStore } from 'pinia'
-import { getUserInfo, logout } from '@/api/user'
+import { getUserInfo } from '@/api/user'
 import type { UserState } from './model/userModel'
 import type { UserInfo, UserRes } from '@/api/user/types'
 import { useAuthStore } from './auth'
@@ -27,10 +27,8 @@ export const useUserStore = defineStore({
       this.userInfo = userInfo
     },
     async GetInfoAction() {
-      let data: UserRes
-        const res = await getUserInfo()
-        data = res.data
-      const { avatar, buttons, name, roles, routers } = data
+      const res = await getUserInfo()
+      const { avatar, buttons, name, roles, routers } = res.data as UserRes
       const authStore = useAuthStore()
       // 存储用户信息
       this.setUserInfo({ avatar, name })
@@ -38,7 +36,7 @@ export const useUserStore = defineStore({
       authStore.setAuth({ buttons, roles, routers })
     },
     async Logout() {
-      await logout()
+      // await logout()
       RESEETSTORE()
     },
   },
