@@ -37,7 +37,7 @@ service.interceptors.request.use(
     const userStore = useUserStore()
     const token = userStore.token
     if (token) {
-      config.headers.token = token
+      config.headers.ACCESS_TOKEN = token
     }
     return config
   },
