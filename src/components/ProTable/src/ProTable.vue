@@ -53,6 +53,7 @@
       :data="tableData"
       :row-key="rowKey"
       :border="border"
+      :stripe="stripe"
       @selection-change="selectionChange"
     >
       <!-- default slot -->
@@ -138,6 +139,7 @@ import ColSetting from './components/ColSetting.vue'
  * @param pagination    - 是否需要分页组件 ==> 非必传（默认为true）
  * @param initParam     - 初始化请求参数 ==> 非必传（默认为{}）
  * @param border        - 是否带有纵向边框 ==> 非必传（默认为true）
+ * @param stripe        - 是否带有斑马纹 ==> 非必传（默认为false）
  * @param toolButton    - 是否显示表格功能按钮 ==> 非必传（默认为true）
  * @param rowKey?: string; // 行数据的 Key，用来优化 Table 的渲染，当表格数据多选时，所指定的 id ==> 非必传（默认为 id）
  * @param searchCol     - 表格搜索项 每列占比配置 ==> 非必传 { xs: 1, sm: 2, md: 2, lg: 3, xl: 4 }
@@ -151,6 +153,7 @@ interface ProTableProps extends Partial<Omit<TableProps<any>, 'data'>> {
   pagination?: boolean
   initParam?: any
   border?: boolean
+  stripe?: boolean
   toolButton?: boolean
   rowKey?: string
   searchCol?: number | Record<BreakPoint, number>
@@ -163,12 +166,12 @@ const props = withDefaults(defineProps<ProTableProps>(), {
   pagination: true,
   initParam: {},
   border: true,
+  stripe: false,
   toolButton: true,
   rowKey: 'id',
   searchCol: () => ({ xs: 1, sm: 2, md: 2, lg: 3, xl: 4 }),
   resetCallback: () => ({}),
 })
-
 // --------------------表格-----------------------
 const tableCard = ref()
 
