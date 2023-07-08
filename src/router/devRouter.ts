@@ -39,15 +39,40 @@ export const devRoutes: RouteRecordRaw[] = [
       {
         name: 'apartmentManagement/apartmentManagement',
         path: '/apartmentManagement/apartmentManagement',
-        component: () =>
-          import(
-            '@/views/apartmentManagement/apartmentManagement/apartmentManagement.vue'
-          ),
+        redirect: '/apartmentManagement/apartmentManagement',
         meta: {
           title: '公寓管理',
           icon: 'UserFilled',
         },
-        children: [],
+        children: [
+          {
+            name: 'apartmentManagement/apartmentManagement',
+            path: '/apartmentManagement/apartmentManagement',
+            component: () =>
+              import(
+                '@/views/apartmentManagement/apartmentManagement/apartmentManagement.vue'
+              ),
+            meta: {
+              title: '公寓管理',
+              icon: 'UserFilled',
+            },
+            children: [],
+          },
+          {
+            name: 'apartmentManagement/apartmentManagement/addOrEditApartment',
+            path: '/apartmentManagement/apartmentManagement/addOrEditApartment',
+            component: () =>
+              import(
+                '@/views/apartmentManagement/apartmentManagement/components/addOrEditApartment.vue'
+              ),
+            meta: {
+              title: '公寓详情',
+              icon: 'Document',
+              isHide: true,
+              activeMenu: '/apartmentManagement/apartmentManagement',
+            },
+          },
+        ],
       },
       {
         name: 'apartmentManagement/roomManagement',
