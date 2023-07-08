@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@amap/amap-jsapi-loader': ^1.0.1
   '@babel/eslint-parser': ^7.19.1
   '@commitlint/cli': ^17.4.2
   '@commitlint/config-conventional': ^17.4.2
@@ -58,6 +59,7 @@ specifiers:
   vue-tsc: ^1.0.11
 
 dependencies:
+  '@amap/amap-jsapi-loader': registry.npmmirror.com/@amap/amap-jsapi-loader/1.0.1
   '@element-plus/icons-vue': registry.npmmirror.com/@element-plus/icons-vue/2.0.10_vue@3.3.4
   '@vueuse/core': 9.12.0_vue@3.3.4
   axios: registry.npmmirror.com/axios/1.4.0
@@ -164,6 +166,12 @@ packages:
         optional: true
     dependencies:
       vue: registry.npmmirror.com/vue/3.3.4
+    dev: false
+
+  registry.npmmirror.com/@amap/amap-jsapi-loader/1.0.1:
+    resolution: {integrity: sha512-nPyLKt7Ow/ThHLkSvn2etQlUzqxmTVgK7bIgwdBRTg2HK5668oN7xVxkaiRe3YZEzGzfV2XgH5Jmu2T73ljejw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@amap/amap-jsapi-loader/-/amap-jsapi-loader-1.0.1.tgz}
+    name: '@amap/amap-jsapi-loader'
+    version: 1.0.1
     dev: false
 
   registry.npmmirror.com/@ampproject/remapping/2.2.0:

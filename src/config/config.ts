@@ -14,6 +14,8 @@ export const ROUTER_WHITE_LIST: string[] = ['/404']
 
 // * 高德地图 key
 export const AMAP_MAP_KEY = ''
+// 高德地图 安全密匙
+export const AMAP_MAP_SECURITY_KEY = ''
 
 // * 百度地图 key
 export const BAIDU_MAP_KEY = ''

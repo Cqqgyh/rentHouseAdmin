@@ -31,6 +31,7 @@
     ]
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@element-plus/icons-vue": "^2.0.10",
     "@vueuse/core": "^9.1.1",
     "axios": "^1.4.0",
