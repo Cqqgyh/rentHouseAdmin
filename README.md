@@ -1,4 +1,4 @@
-## 投资运营后台管理系统
+## 后台管理系统
 
 采用 vue3 全家桶（vite+pinia+element-plus+vue-router@4）
 
@@ -94,3 +94,4 @@ guiug-sph-mall-admin
 ```
 ## 文档地址
 
+http://139.198.127.41:8080/doc.html#/home
