@@ -156,7 +156,7 @@ const columns: ColumnProps[] = [
   { prop: 'totalRoomCount', label: '房间总数' },
   { prop: 'provinceName', label: '所处省份' },
   { prop: 'cityName', label: '所处城市' },
-  { prop: 'districtName', label: '所处省份' },
+  { prop: 'districtName', label: '所处区域' },
   { prop: 'phone', label: '联系方式' },
   {
     prop: '入住状态',
