@@ -10,7 +10,7 @@
     >
       <template #tableHeader>
         <el-button type="primary" icon="Plus" @click="() => {}">
-          新增门店
+          新增公寓
         </el-button>
       </template>
       <!-- 表格操作 -->
