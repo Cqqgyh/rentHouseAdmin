@@ -38,7 +38,7 @@ export const devRoutes: RouteRecordRaw[] = [
     children: [
       {
         name: 'apartmentManagement/apartmentManagement',
-        path: '/apartmentManagement/apartmentManagement',
+        path: '/apartmentManagement',
         redirect: '/apartmentManagement/apartmentManagement',
         meta: {
           title: '公寓管理',

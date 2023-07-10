@@ -162,10 +162,12 @@ const columns: ColumnProps[] = [
     prop: '入住状态',
     label: '入住状态',
     render: ({ row }: { row: ApartmentInterface }) => {
-      return (
-        <el-tag
-          type={row.freeRoomCount === row.totalRoomCount ? 'info' : 'success'}
-        >
+      return row.freeRoomCount === row.totalRoomCount ? (
+        <el-tag type="info">
+          {row.freeRoomCount === row.totalRoomCount ? '已满房' : '可入住'}
+        </el-tag>
+      ) : (
+        <el-tag type="success">
           {row.freeRoomCount === row.totalRoomCount ? '已满房' : '可入住'}
         </el-tag>
       )
