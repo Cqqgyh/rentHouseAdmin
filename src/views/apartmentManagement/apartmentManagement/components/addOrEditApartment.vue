@@ -148,8 +148,9 @@
       <el-form-item label="图片" prop="graphVoList">
         <upload-img
           v-model:file-list="formData.graphVoList"
+          :on-success="uploadSuccessHandle"
           list-type="picture-card"
-          :limit="1"
+          :limit="5"
         ></upload-img>
       </el-form-item>
     </el-form>
@@ -165,7 +166,7 @@
 </template>
 <script setup lang="ts">
 import { nextTick, onMounted, reactive, ref } from 'vue'
-import { ElMessage, FormInstance } from 'element-plus'
+import { ElMessage, FormInstance, UploadFiles } from 'element-plus'
 import {
   AddressOptionsInterface,
   ApartmentInterface,
@@ -459,6 +460,19 @@ function feeNodeClickHandle(data: TreeData) {
   }
 }
 //#endregion
+// 图片上传成功
+function uploadSuccessHandle(
+  response: any,
+  uploadFile: UploadFile,
+  uploadFiles: UploadFiles,
+) {
+  formData.value.graphVoList = uploadFiles?.map((item) => {
+    return {
+      ...item,
+      url: (item?.response as any)?.data || item.url,
+    }
+  })
+}
 // 根据id获取公寓信息
 async function getApartmentInfoByIdHandle(id: number | string) {
   try {
