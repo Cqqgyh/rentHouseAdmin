@@ -205,7 +205,7 @@ type FormDataInstance = Required<
 >
 const apartmentFormRef = ref<FormInstance>()
 const formData = ref<FormDataInstance>({
-  id: 0,
+  id: '',
   name: '',
   introduction: '',
   districtId: '',
