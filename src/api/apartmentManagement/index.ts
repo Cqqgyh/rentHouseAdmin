@@ -6,9 +6,11 @@ import {
   FeeInfoInfoInterface,
   LabelInfoInterface,
   RegionInterface,
+  RoomInterface,
+  RoomListQueryInterface,
 } from '@/api/apartmentManagement/types'
 import { PageRes } from '@/api/types'
-
+//#region <公寓>
 /**
  * @description 分页查询公寓信息列表
  * @param params
@@ -98,3 +100,46 @@ export function getFeeInfoList() {
 export function getApartmentById(id: number | string) {
   return http.get<ApartmentInterface>(`/admin/apartment/getDetailById?id=${id}`)
 }
+//#endregion
+//#region <房间>
+/**
+ * @description 分页查询房间的信息列表
+ * @param params
+ */
+export function getRoomList(params: RoomListQueryInterface) {
+  return http.get<PageRes<RoomInterface[]>>(`/admin/room/pageItem`, {
+    current: params.pageNum,
+    size: params.pageSize,
+    provinceId: params.provinceId,
+    cityId: params.cityId,
+    districtId: params.districtId,
+    apartmentId: params.apartmentId,
+  })
+}
+/**
+ * @description 根据区县id查询公寓信息列表
+ * @param districtId
+ */
+export function getApartmentListByDistrictId(districtId: number | string) {
+  return http.get<ApartmentInterface[]>(
+    `/admin/apartment/listInfoByDistrictId?id=${districtId}`,
+  )
+}
+/**
+ * @description 根据id修改房间发布状态
+ * @param id
+ * @param status
+ */
+export function updateRoomReleaseStatus(id: number | string, status: string) {
+  return http.post(
+    `/admin/room/updateReleaseStatusById?id=${id}&status=${status}`,
+  )
+}
+/**
+ * @description 根据id删除房间信息
+ * @param id
+ */
+export function deleteRoomById(id: number | string) {
+  return http.delete(`/admin/room/removeById?id=${id}`)
+}
+//#endregion

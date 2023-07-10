@@ -1,7 +1,7 @@
 // 分页查询公寓信息列表
 import { ReqPage } from '@/api/types'
 import { UploadFile } from 'element-plus/es/components/upload/src/upload'
-
+//#region <公寓>
 export interface ApartmentListQueryInterface extends ReqPage {
   // 省份id
   provinceId?: number | string
@@ -11,7 +11,7 @@ export interface ApartmentListQueryInterface extends ReqPage {
   districtId?: number | string
 }
 export interface ApartmentInterface {
-  id: number
+  id: number | string
   name: string
   introduction: string
   districtId: number | string
@@ -89,3 +89,29 @@ export interface TreeData {
   parentId?: number | string
   children?: TreeData[]
 }
+//#endregion
+//#region <房间>
+// 房间请求参数
+export interface RoomListQueryInterface extends ReqPage {
+  // 省份id
+  provinceId?: number | string
+  // 城市id
+  cityId?: number | string
+  // 区域id
+  districtId?: number | string
+  // 公寓id
+  apartmentId?: number | string
+}
+// 房间的信息
+export interface RoomInterface {
+  id: number | string
+  name: string
+  roomNumber: string
+  rent: number | string
+  apartmentId: number | string
+  isRelease: string
+  leaseEndDate: string
+  checkInStatus: string
+  apartmentInfo: Omit<ApartmentInterface, 'totalRoomCount' | 'freeRoomCount'>
+}
+//#endregion
