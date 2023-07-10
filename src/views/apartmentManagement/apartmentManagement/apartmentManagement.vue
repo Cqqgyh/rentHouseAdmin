@@ -44,7 +44,6 @@ import {
   ApartmentInterface,
   RegionInterface,
 } from '@/api/apartmentManagement/types'
-import { ElMessage } from 'element-plus'
 const router = useRouter()
 
 // *获取 ProTable 元素，调用其获取刷新数据方法
@@ -201,7 +200,6 @@ async function getProvinceListHandle() {
     proTable.value?.enumMap.set('provinceId', areaInfo.provinceList)
   } catch (error) {
     console.log(error)
-    ElMessage.error((error as any)?.message || 'Has Error')
   }
 }
 // 获取城市
@@ -213,7 +211,6 @@ async function getCityListHandle(provinceId: number) {
     resetDistrict()
   } catch (error) {
     console.log(error)
-    ElMessage.error((error as any)?.message || 'Has Error')
   }
 }
 // 获取区域
@@ -224,7 +221,6 @@ async function getDistrictListHandle(cityId: number) {
     proTable.value?.enumMap.set('districtId', areaInfo.districtList)
   } catch (error) {
     console.log(error)
-    ElMessage.error((error as any)?.message || 'Has Error')
   }
 }
 // 重置市、区数据

@@ -75,19 +75,26 @@ export function deleteApartmentById(id: number | string) {
 }
 /**
  * @description 查询配套信息列表
+ * @param type
  */
-export function getFacilityInfoList() {
-  return http.get<FacilityInfoInterface[]>(`/admin/facility/list`)
+export function getFacilityInfoList(type: '公寓' | '房间') {
+  return http.get<FacilityInfoInterface[]>(`/admin/facility/list?type=${type}`)
 }
 /**
  * @description 查询标签信息列表
  */
-export function getLabelInfoList() {
-  return http.get<LabelInfoInterface[]>(`/admin/label/list`)
+export function getLabelInfoList(type: '公寓' | '房间') {
+  return http.get<LabelInfoInterface[]>(`/admin/label/list?type=${type}`)
 }
 /**
  * @description 查询杂费信息列表
  */
 export function getFeeInfoList() {
   return http.get<FeeInfoInfoInterface[]>(`/admin/fee/list`)
+}
+/**
+ * @description 根据id获取公寓信息
+ */
+export function getApartmentById(id: number | string) {
+  return http.get<ApartmentInterface>(`/admin/apartment/getDetailById?id=${id}`)
 }

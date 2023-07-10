@@ -1,5 +1,6 @@
 // 分页查询公寓信息列表
 import { ReqPage } from '@/api/types'
+import { UploadFile } from 'element-plus/es/components/upload/src/upload'
 
 export interface ApartmentListQueryInterface extends ReqPage {
   // 省份id
@@ -27,18 +28,24 @@ export interface ApartmentInterface {
   totalRoomCount: number
   freeRoomCount: number
   // 	公寓配套id
-  facilityInfoIds?: []
+  facilityInfoIds?: number[]
+  // 	公寓配套信息
+  facilityInfoList?: FacilityInfoInterface[]
   // 	公寓标签id
-  labelIds?: []
+  labelIds?: number[]
+  // 公寓标签信息
+  labelInfoList?: LabelInfoInterface[]
   // 	公寓杂费值id
-  feeValueIds?: []
+  feeValueIds?: number[]
+  // 	公寓杂费值信息
+  feeValueVoList?: FeeInfoInfoInterface['feeValueList']
   // 图片信息
-  graphVoList?: [
-    {
-      name: ''
-      url: ''
-    },
-  ]
+  graphVoList?:
+    | {
+        url: string
+        name: number
+      }[]
+    | UploadFile[]
 }
 // 省市区
 export interface RegionInterface {
@@ -48,7 +55,7 @@ export interface RegionInterface {
 export interface AddressOptionsInterface {
   label: string
   value: string
-  location?: { lng: number; lat: number }
+  location?: { lng: number | string; lat: number | string }
 }
 // 配套信息
 export interface FacilityInfoInterface {
@@ -73,4 +80,12 @@ export interface FeeInfoInfoInterface {
     unit: string
     feeKeyId: number
   }[]
+}
+// 树形结构
+export interface TreeData {
+  id?: number | string
+  value?: number | string
+  label: string
+  parentId?: number | string
+  children?: TreeData[]
 }

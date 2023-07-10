@@ -2,11 +2,11 @@
   <el-card>
     <template #header>
       <div class="card-header">
-        <span>新增公寓</span>
+        <span>{{ formData.id ? '修改' : '新增' }}公寓</span>
       </div>
     </template>
     <el-form
-      ref="ruleFormRef"
+      ref="apartmentFormRef"
       :model="formData"
       :rules="rules"
       label-width="120px"
@@ -71,11 +71,12 @@
           </el-form-item>
         </div>
       </el-form-item>
-      <el-form-item label="详细地址" prop="introduction">
+      <el-form-item label="详细地址" prop="addressDetail">
         <el-select
           v-model="formData.addressDetail"
           filterable
           remote
+          clearable
           placeholder="请输入详细地址查询"
           :remote-method="remoteMethod"
           style="width: 100%"
@@ -98,34 +99,112 @@
           <el-radio label="已发布">已发布</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="公寓配套" prop="facilityInfoIds">
+        <el-select
+          style="width: 100%"
+          v-model="formData.facilityInfoIds"
+          placeholder="请选择公寓配套"
+          multiple
+          clearable
+        >
+          <el-option
+            v-for="item in facilityInfoList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="公寓标签" prop="labelIds">
+        <el-select
+          style="width: 100%"
+          v-model="formData.labelIds"
+          placeholder="请选择公寓标签"
+          multiple
+          clearable
+        >
+          <el-option
+            v-for="item in labelInfoList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="公寓杂费" prop="feeValueIds">
+        <el-tree-select
+          ref="feeTreeSelectRef"
+          style="width: 100%"
+          v-model="formData.feeValueIds"
+          placeholder="请选择公寓杂费"
+          :data="feeInfoList"
+          multiple
+          clearable
+          node-key="value"
+          :render-after-expand="false"
+          @node-click="feeNodeClickHandle"
+        ></el-tree-select>
+      </el-form-item>
+      <el-form-item label="图片" prop="graphVoList">
+        <upload-img
+          v-model:file-list="formData.graphVoList"
+          list-type="picture-card"
+          :limit="1"
+        ></upload-img>
+      </el-form-item>
     </el-form>
+    <div class="flex-center m-t-20">
+      <el-button style="width: 150px" type="info" @click="router.back()">
+        取消
+      </el-button>
+      <el-button style="width: 150px" type="primary" @click="submitHandle">
+        {{ formData.id ? '保存' : '新增' }}
+      </el-button>
+    </div>
   </el-card>
 </template>
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
-import { ElMessage } from 'element-plus'
+import { nextTick, onMounted, reactive, ref } from 'vue'
+import { ElMessage, FormInstance } from 'element-plus'
 import {
   AddressOptionsInterface,
   ApartmentInterface,
   FacilityInfoInterface,
-  FeeInfoInfoInterface,
   LabelInfoInterface,
   RegionInterface,
 } from '@/api/apartmentManagement/types'
 import {
+  getApartmentById,
   getCityList,
   getDistrictList,
   getFacilityInfoList,
   getFeeInfoList,
   getLabelInfoList,
   getProvinceList,
+  saveOrUpdateApartment,
 } from '@/api/apartmentManagement'
 import { useMap } from '@/hooks/useMap'
+import { TreeData } from '@/api/apartmentManagement/types'
+import { ElTree } from 'element-plus/es/components/tree'
+import { UploadFile } from 'element-plus/es/components/upload/src/upload'
+import UploadImg from '@/components/uploadImg/uploadImg.vue'
+import { useRoute, useRouter } from 'vue-router'
+const route = useRoute()
+const router = useRouter()
 //#region <表单相关>
 // 表单数据
-const formData = reactive<
-  Omit<ApartmentInterface, 'totalRoomCount' | 'freeRoomCount'>
->({
+type FormDataInstance = Required<
+  Omit<
+    ApartmentInterface,
+    | 'totalRoomCount'
+    | 'freeRoomCount'
+    | 'facilityInfoList'
+    | 'labelInfoList'
+    | 'feeValueVoList'
+  >
+>
+const apartmentFormRef = ref<FormInstance>()
+const formData = ref<FormDataInstance>({
   id: 0,
   name: '',
   introduction: '',
@@ -145,14 +224,25 @@ const formData = reactive<
   feeValueIds: [],
   graphVoList: [
     {
-      name: '',
-      url: '',
+      name: 'food.jpeg',
+      url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
     },
-  ],
+  ] as UploadFile[],
 })
 // 表单验证规则
 const rules = reactive({
   name: [{ required: true, message: '请输入公寓名称', trigger: 'blur' }],
+  introduction: [
+    { required: true, message: '请输入公寓介绍', trigger: 'blur' },
+  ],
+  provinceId: [{ required: true, message: '请选择省份', trigger: 'change' }],
+  cityId: [{ required: true, message: '请选择城市', trigger: 'change' }],
+  districtId: [{ required: true, message: '请选择区域', trigger: 'change' }],
+  addressDetail: [
+    { required: true, message: '请选择详细地址', trigger: 'change' },
+  ],
+  phone: [{ required: true, message: '请输入公寓前台电话', trigger: 'blur' }],
+  graphVoList: [{ required: true, message: '请上传图片', trigger: 'change' }],
 })
 //#region <地区数据相关>
 // 地区数据
@@ -172,67 +262,70 @@ async function getProvinceListHandle() {
     areaInfo.provinceList = data
   } catch (error) {
     console.log(error)
-    ElMessage.error((error as any)?.message || 'Has Error')
   }
 }
 
 // 获取城市
-async function getCityListHandle(provinceId: number | string) {
+async function getCityListHandle(
+  provinceId: number | string = formData.value.provinceId,
+) {
+  if (!provinceId) return
   try {
     const { data } = await getCityList(provinceId)
     areaInfo.cityList = data
     resetDistrict()
   } catch (error) {
     console.log(error)
-    ElMessage.error((error as any)?.message || 'Has Error')
   }
 }
 
 // 获取区域
-async function getDistrictListHandle(cityId: number | string) {
+async function getDistrictListHandle(
+  cityId: number | string = formData.value.cityId,
+) {
+  if (!cityId) return
   try {
     const { data } = await getDistrictList(cityId)
     areaInfo.districtList = data
   } catch (error) {
     console.log(error)
-    ElMessage.error((error as any)?.message || 'Has Error')
   }
 }
 
 // 重置市、区数据
 function resetCityAndDistrict() {
-  formData.cityId = ''
-  formData.districtId = ''
+  formData.value.cityId = ''
+  formData.value.districtId = ''
   areaInfo.cityList = []
   areaInfo.districtList = []
 }
 
 // 重置区数据
 function resetDistrict() {
-  formData.districtId = ''
+  formData.value.districtId = ''
   areaInfo.districtList = []
 }
 
 // 省份改变回调
 const provinceChangeCallback = async () => {
-  let provinceId = formData.provinceId
+  let provinceId = formData.value.provinceId
   provinceId && (await getCityListHandle(provinceId))
 }
 // 省份清除回调
 const provinceClearCallback = () => {
-  formData.provinceId = ''
+  formData.value.provinceId = ''
   resetCityAndDistrict()
 }
 // 城市改变回调
 const cityChangeCallback = async () => {
-  let cityId = formData.cityId
+  let cityId = formData.value.cityId
   cityId && (await getDistrictListHandle(cityId))
 }
 // 城市清除回调
 const cityClearCallback = () => {
   console.log('清空城市')
-  formData.cityId = ''
-  formData.districtId = ''
+  formData.value.cityId = ''
+  formData.value.districtId = ''
   areaInfo.districtList = []
 }
 // 区域改变回调
@@ -242,7 +335,7 @@ const districtChangeCallback = () => {
 // 区域清除回调
 const districtClearCallback = () => {
   console.log('清空区域')
-  formData.districtId = ''
+  formData.value.districtId = ''
 }
 //#endregion
 //#endregion
@@ -257,6 +350,10 @@ const { AMap } = useMap()
 // 动态地址改查询
 function remoteMethod(keywords: string) {
   if (keywords.trim()) {
+    keywords +=
+      formData.value.districtName +
+      formData.value.cityName +
+      formData.value.provinceName
     AMap.value.plugin('AMap.AutoComplete', function () {
       // 实例化Autocomplete
       let autoOptions = {
@@ -288,9 +385,9 @@ function addressDetailChangeCallback(value: string | number) {
   )
   if (targetObj) {
     // lng  经度
-    formData.longitude = targetObj.location?.lng || ''
+    formData.value.longitude = targetObj.location?.lng || ''
     // lat  纬度
-    formData.latitude = targetObj.location?.lat || ''
+    formData.value.latitude = targetObj.location?.lat || ''
   }
 }
 //#endregion
@@ -300,38 +397,119 @@ const facilityInfoList = ref<FacilityInfoInterface[]>([])
 // 标签信息
 const labelInfoList = ref<LabelInfoInterface[]>([])
 // 杂费信息
-const feeInfoList = ref<FeeInfoInfoInterface[]>([])
+const feeInfoList = ref<TreeData[]>([])
+const feeTreeSelectRef = ref<InstanceType<typeof ElTree>>()
 // 获取配套信息
 async function getFacilityInfoListHandle() {
   try {
-    const { data } = await getFacilityInfoList()
+    const { data } = await getFacilityInfoList('公寓')
     facilityInfoList.value = data
   } catch (error) {
     console.log(error)
-    ElMessage.error((error as any)?.message || 'Has Error')
   }
 }
 // 获取标签信息
 async function getLabelInfoListHandle() {
   try {
-    const { data } = await getLabelInfoList()
+    const { data } = await getLabelInfoList('公寓')
     labelInfoList.value = data
   } catch (error) {
     console.log(error)
-    ElMessage.error((error as any)?.message || 'Has Error')
   }
 }
 // 获取杂费信息
 async function getFeeInfoListHandle() {
   try {
     const { data } = await getFeeInfoList()
-    feeInfoList.value = data
+    feeInfoList.value = data.map((item) => {
+      return {
+        value: item.id + item.name,
+        label: item.name,
+        children: item.feeValueList.map((child) => {
+          return {
+            value: child.id,
+            label: child.name + child.unit,
+            parentId: item.id + item.name,
+          }
+        }),
+      }
+    })
   } catch (error) {
     console.log(error)
-    ElMessage.error((error as any)?.message || 'Has Error')
+  }
+}
+// 配套信息节点点击回调
+function feeNodeClickHandle(data: TreeData) {
+  //   保证每个子节点只有一个被选中
+  if (data.parentId) {
+    //   收集当前父节点下所有的子节点列表
+    const childrenList = feeInfoList.value
+      .find((item) => item.value === data.parentId)
+      ?.children?.map((item) => item.value)
+    nextTick(() => {
+      //   遍历feeValueIds节点，删除所有childrenList中的值
+      formData.value.feeValueIds = formData.value.feeValueIds?.filter(
+        (item) => !childrenList?.includes(item),
+      )
+      //   将当前节点的值添加到feeValueIds中
+      formData.value.feeValueIds?.push(data.value as number)
+    })
   }
 }
 //#endregion
+// 根据id获取公寓信息
+async function getApartmentInfoByIdHandle(id: number | string) {
+  try {
+    const { data } = await getApartmentById(id)
+    // 构造表单数据
+    data.facilityInfoIds = data.facilityInfoList?.map((item) => item.id)
+    delete data.facilityInfoList
+    data.labelIds = data.labelInfoList?.map((item) => item.id)
+    delete data.labelInfoList
+    data.feeValueIds = data.feeValueVoList?.map((item) => item.id)
+    delete data.feeValueVoList
+    addressDetailOptions.value = [
+      {
+        label: data.addressDetail,
+        value: data.addressDetail,
+        location: {
+          lng: data.longitude,
+          lat: data.latitude,
+        },
+      },
+    ]
+    formData.value = data as FormDataInstance
+    // 重置省市区
+    // 获取城市
+    console.log(formData.value.provinceId, formData.value.cityId)
+    formData.value.provinceId && getCityListHandle(formData.value.provinceId)
+    // 获取区域
+    formData.value.cityId && getDistrictListHandle(formData.value.cityId)
+  } catch (error) {
+    console.log(error)
+  }
+}
+// 新增或更新公寓信息
+async function addOrUpdateApartmentInfoHandle() {
+  try {
+    await saveOrUpdateApartment(formData.value)
+    ElMessage.success('操作成功')
+    router.back()
+  } catch (error) {
+    console.log(error)
+  }
+}
+// 提交
+function submitHandle() {
+  apartmentFormRef.value?.validate(async (valid) => {
+    if (valid) {
+      await addOrUpdateApartmentInfoHandle()
+    } else {
+      ElMessage.error('表单填写有误，请检查')
+      return false
+    }
+  })
+}
 onMounted(() => {
   // 获取省份
   getProvinceListHandle()
@@ -341,6 +519,9 @@ onMounted(() => {
   getLabelInfoListHandle()
   // 获取杂费信息
   getFeeInfoListHandle()
+  if (route.query?.id) {
+    getApartmentInfoByIdHandle(route.query.id as string)
+  }
 })
 </script>
 
