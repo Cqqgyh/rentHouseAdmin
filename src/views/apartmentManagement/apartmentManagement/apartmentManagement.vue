@@ -9,7 +9,7 @@
       :stripe="true"
     >
       <template #tableHeader>
-        <el-button type="primary" icon="Plus" @click="() => {}">
+        <el-button type="primary" icon="Plus" @click="addHandle">
           新增公寓
         </el-button>
       </template>
@@ -292,6 +292,12 @@ const editHandle = (row: ApartmentInterface) => {
     query: {
       id: row.id,
     },
+  })
+}
+// 新增
+const addHandle = () => {
+  router.push({
+    path: '/apartmentManagement/apartmentManagement/addOrEditApartment',
   })
 }
 // 通过，不通过
