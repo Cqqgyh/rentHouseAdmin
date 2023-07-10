@@ -208,7 +208,6 @@ async function getCityListHandle(provinceId: number) {
     const { data } = await getCityList(provinceId)
     areaInfo.cityList = data
     proTable.value?.enumMap.set('cityId', areaInfo.cityList)
-    resetDistrict()
   } catch (error) {
     console.log(error)
   }
@@ -223,16 +222,13 @@ async function getDistrictListHandle(cityId: number) {
     console.log(error)
   }
 }
-// 重置市、区数据
-function resetCityAndDistrict() {
+
+// 重置市数据
+function resetCity() {
   areaInfo.cityId = ''
-  areaInfo.districtId = ''
   areaInfo.cityList = []
-  areaInfo.districtList = []
   proTable.value?.enumMap.set('cityId', [])
-  proTable.value?.enumMap.set('districtId', [])
   proTable.value!.searchParam.cityId = ''
-  proTable.value!.searchParam.districtId = ''
 }
 // 重置区数据
 function resetDistrict() {
@@ -244,29 +240,36 @@ function resetDistrict() {
 // 省份改变回调
 const provinceChangeCallback = async () => {
   let provinceId = proTable.value!.searchParam.provinceId
-  provinceId && (await getCityListHandle(provinceId))
+  if (provinceId) {
+    resetCity()
+    resetDistrict()
+    await getCityListHandle(provinceId)
+  }
 }
 // 省份清除回调
 const provinceClearCallback = () => {
   areaInfo.provinceId = ''
-  resetCityAndDistrict()
+  proTable.value!.searchParam.provinceId = ''
+  resetCity()
+  resetDistrict()
 }
 // 城市改变回调
 const cityChangeCallback = async () => {
   let cityId = proTable.value!.searchParam.cityId
-  cityId && (await getDistrictListHandle(cityId))
+  if (cityId) {
+    resetDistrict()
+    await getDistrictListHandle(cityId)
+  }
 }
 // 城市清除回调
 const cityClearCallback = () => {
   console.log('清空城市')
   areaInfo.cityId = ''
-  areaInfo.districtId = ''
   proTable.value!.searchParam.cityId = ''
-  proTable.value!.searchParam.districtId = ''
-  areaInfo.districtList = []
+  resetDistrict()
 }
 // 区域改变回调
-const districtChangeCallback = () => {
+const districtChangeCallback = async () => {
   console.log('区域改变')
 }
 // 区域清除回调

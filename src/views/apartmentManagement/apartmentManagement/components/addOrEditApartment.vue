@@ -273,7 +273,6 @@ async function getCityListHandle(
   try {
     const { data } = await getCityList(provinceId)
     areaInfo.cityList = data
-    resetDistrict()
   } catch (error) {
     console.log(error)
   }
@@ -292,44 +291,47 @@ async function getDistrictListHandle(
   }
 }
 
-// 重置市、区数据
-function resetCityAndDistrict() {
+// 重置市数据
+function resetCity() {
   formData.value.cityId = ''
-  formData.value.districtId = ''
   areaInfo.cityList = []
-  areaInfo.districtList = []
 }
-
 // 重置区数据
 function resetDistrict() {
   formData.value.districtId = ''
   areaInfo.districtList = []
 }
-
 // 省份改变回调
 const provinceChangeCallback = async () => {
   let provinceId = formData.value.provinceId
-  provinceId && (await getCityListHandle(provinceId))
+  if (provinceId) {
+    resetCity()
+    resetDistrict()
+    await getCityListHandle(provinceId)
+  }
 }
 // 省份清除回调
 const provinceClearCallback = () => {
   formData.value.provinceId = ''
-  resetCityAndDistrict()
+  resetCity()
+  resetDistrict()
 }
 // 城市改变回调
 const cityChangeCallback = async () => {
   let cityId = formData.value.cityId
-  cityId && (await getDistrictListHandle(cityId))
+  if (cityId) {
+    resetDistrict()
+    await getDistrictListHandle(cityId)
+  }
 }
 // 城市清除回调
 const cityClearCallback = () => {
   console.log('清空城市')
   formData.value.cityId = ''
-  formData.value.districtId = ''
-  areaInfo.districtList = []
+  resetDistrict()
 }
 // 区域改变回调
-const districtChangeCallback = () => {
+const districtChangeCallback = async () => {
   console.log('区域改变')
 }
 // 区域清除回调
