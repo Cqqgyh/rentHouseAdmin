@@ -356,7 +356,7 @@ const dataCallback = (data: any) => {
 const editHandle = (row: RoomInterface) => {
   console.log(row)
   router.push({
-    path: '/apartmentManagement/apartmentManagement/addOrEditApartment',
+    path: '/apartmentManagement/roomManagement/addOrEditRoom',
     query: {
       id: row.id,
     },
@@ -365,7 +365,7 @@ const editHandle = (row: RoomInterface) => {
 // 新增
 const addHandle = () => {
   router.push({
-    path: '/apartmentManagement/apartmentManagement/addOrEditApartment',
+    path: '/apartmentManagement/roomManagement/addOrEditRoom',
   })
 }
 // 通过，不通过
