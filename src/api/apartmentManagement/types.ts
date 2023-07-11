@@ -105,13 +105,77 @@ export interface RoomListQueryInterface extends ReqPage {
 // 房间的信息
 export interface RoomInterface {
   id: number | string
-  name: string
-  roomNumber: string
+  roomNumber: number | string
   rent: number | string
   apartmentId: number | string
   isRelease: string
   leaseEndDate: string
   checkInStatus: string
   apartmentInfo: Omit<ApartmentInterface, 'totalRoomCount' | 'freeRoomCount'>
+  // 	属性信息列表
+  attrValueVoList?: any[]
+  // 	公寓配套信息
+  facilityInfoList?: FacilityInfoInterface[]
+  // 公寓标签信息
+  labelInfoList?: LabelInfoInterface[]
+  // 	支付方式列表
+  paymentTypeList?: PaymentInfoInterface[]
+  // 可选租期列表
+  leaseTermList?: TermInfoInterface[]
+  // 图片信息
+  graphVoList?:
+    | {
+        url: string
+        name: number
+      }[]
+    | UploadFile[]
+}
+// 保存房间的信息
+export interface SaveRoomInterface {
+  id: number | string
+  roomNumber: string
+  rent: number | string
+  apartmentId: number | string
+  isRelease: string
+  // 	属性信息列表
+  attrValueIds: number[]
+  // 	配套id
+  facilityInfoIds: number[]
+  // 	标签信息列表
+  labelInfoIds: number[]
+  // 	支付方式列表
+  paymentTypeIds: number[]
+  // 可选租期列表
+  leaseTermIds: number[]
+  // 图片信息
+  graphVoList:
+    | {
+        url: string
+        name: number
+      }[]
+    | UploadFile[]
+}
+// 属性信息列表
+export interface AttrInfoInfoInterface {
+  id: number
+  name: string
+  attrValueList: {
+    id: number
+    name: string
+    attrKeyId: number
+  }[]
+}
+// 支付方式信息列表
+export interface PaymentInfoInterface {
+  id: number
+  name: string
+  payMonthCount: string
+  additionalInfo: string
+}
+// 租期信息列表
+export interface TermInfoInterface {
+  id: number
+  unit: string
+  monthCount: string
 }
 //#endregion

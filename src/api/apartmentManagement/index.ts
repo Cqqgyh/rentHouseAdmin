@@ -2,12 +2,16 @@ import http from '@/utils/http'
 import {
   ApartmentInterface,
   ApartmentListQueryInterface,
+  AttrInfoInfoInterface,
   FacilityInfoInterface,
   FeeInfoInfoInterface,
   LabelInfoInterface,
+  PaymentInfoInterface,
   RegionInterface,
   RoomInterface,
   RoomListQueryInterface,
+  SaveRoomInterface,
+  TermInfoInterface,
 } from '@/api/apartmentManagement/types'
 import { PageRes } from '@/api/types'
 //#region <公寓>
@@ -141,5 +145,36 @@ export function updateRoomReleaseStatus(id: number | string, status: string) {
  */
 export function deleteRoomById(id: number | string) {
   return http.delete(`/admin/room/removeById?id=${id}`)
+}
+/**
+ * @description 根据id获取房间信息
+ * @param id
+ */
+export function getRoomById(id: number | string) {
+  return http.get<RoomInterface>(`/admin/room/getDetailById?id=${id}`)
+}
+/**
+ * @description 保存或更新房间的信息
+ */
+export function saveOrUpdateRoom(params: SaveRoomInterface) {
+  return http.post(`/admin/room/saveOrUpdate`, params)
+}
+/**
+ * @description 查询属性信息列表
+ */
+export function getAttrInfoList() {
+  return http.get<AttrInfoInfoInterface[]>(`/admin/attr/list`)
+}
+/**
+ * @description 查询支付方式列表
+ */
+export function getPaymentList() {
+  return http.get<PaymentInfoInterface[]>(`/admin/payment/list`)
+}
+/**
+ * @description 查询租期列表
+ */
+export function getTermList() {
+  return http.get<TermInfoInterface[]>(`/admin/term/list`)
 }
 //#endregion
