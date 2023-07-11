@@ -83,8 +83,10 @@ export function deleteApartmentById(id: number | string) {
  * @description 查询配套信息列表
  * @param type
  */
-export function getFacilityInfoList(type: '公寓' | '房间') {
-  return http.get<FacilityInfoInterface[]>(`/admin/facility/list?type=${type}`)
+export function getFacilityInfoList(type: '公寓' | '房间' | null = null) {
+  return http.get<FacilityInfoInterface[]>(
+    `/admin/facility/list${type ? `?type=${type}` : ''}`,
+  )
 }
 /**
  * @description 查询标签信息列表
