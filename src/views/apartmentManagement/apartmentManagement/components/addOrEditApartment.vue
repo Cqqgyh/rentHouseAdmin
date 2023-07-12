@@ -95,8 +95,22 @@
       </el-form-item>
       <el-form-item label="是否发布" prop="isRelease">
         <el-radio-group v-model="formData.isRelease" class="ml-4">
-          <el-radio label="未发布">未发布</el-radio>
-          <el-radio label="已发布">已发布</el-radio>
+          <el-radio :label="ApartmentReleaseStatus.NOT_RELEASED">
+            {{
+              getLabelByValue(
+                ApartmentReleaseStatusMap,
+                ApartmentReleaseStatus.NOT_RELEASED,
+              )
+            }}
+          </el-radio>
+          <el-radio :label="ApartmentReleaseStatus.RELEASED">
+            {{
+              getLabelByValue(
+                ApartmentReleaseStatusMap,
+                ApartmentReleaseStatus.RELEASED,
+              )
+            }}
+          </el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="公寓配套" prop="facilityInfoIds">
@@ -175,6 +189,11 @@ import {
   RegionInterface,
 } from '@/api/apartmentManagement/types'
 import {
+  ApartmentReleaseStatus,
+  getLabelByValue,
+  ApartmentReleaseStatusMap,
+} from '@/enums/constEnums'
+import {
   getApartmentById,
   getCityList,
   getDistrictList,
@@ -219,7 +238,7 @@ const formData = ref<FormDataInstance>({
   latitude: '',
   longitude: '',
   phone: '',
-  isRelease: '未发布',
+  isRelease: ApartmentReleaseStatus.NOT_RELEASED,
   facilityInfoIds: [],
   labelIds: [],
   feeValueIds: [],

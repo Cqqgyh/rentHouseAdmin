@@ -24,7 +24,7 @@ export interface ApartmentInterface {
   latitude: number | string
   longitude: number | string
   phone: string
-  isRelease: string
+  isRelease: string | number
   totalRoomCount: number
   freeRoomCount: number
   // 	公寓配套id
@@ -177,5 +177,10 @@ export interface TermInfoInterface {
   id: number
   unit: string
   monthCount: string
+}
+//#endregion
+//#region <属性>
+export interface SupportFacilityInterface {
+  [key: string]: FacilityInfoInterface[]
 }
 //#endregion

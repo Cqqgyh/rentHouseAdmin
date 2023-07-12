@@ -11,7 +11,7 @@ export function getLabelByValue(
     label: string
     value: string | number
   }[],
-  value: string,
+  value: string | number,
 ): string {
   const item = arr.find((item) => item.value === value)
   return item ? item.label : ''
@@ -61,4 +61,22 @@ export const ButtonPermission = {
     LoginLogList: 'bnt.sysLoginLog.list',
   },
 }
-
+// 公寓的发布状态
+export enum ApartmentReleaseStatus {
+  NOT_RELEASED = '未发布',
+  RELEASED = '已发布',
+}
+// 公寓的发布状态
+export const ApartmentReleaseStatusMap = [
+  { label: '未发布', value: ApartmentReleaseStatus.NOT_RELEASED },
+  { label: '已发布', value: ApartmentReleaseStatus.RELEASED },
+]
+// 房间的发布状态
+export enum RoomReleaseStatus {
+  NOT_RELEASED = '未发布',
+  RELEASED = '已发布',
+}
+export const RoomReleaseStatusMap = [
+  { label: '未发布', value: RoomReleaseStatus.NOT_RELEASED },
+  { label: '已发布', value: RoomReleaseStatus.RELEASED },
+]

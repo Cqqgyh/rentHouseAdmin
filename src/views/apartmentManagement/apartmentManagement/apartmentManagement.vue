@@ -44,6 +44,7 @@ import {
   ApartmentInterface,
   RegionInterface,
 } from '@/api/apartmentManagement/types'
+import { ApartmentReleaseStatus } from '@/enums/constEnums'
 const router = useRouter()
 
 // *获取 ProTable 元素，调用其获取刷新数据方法
@@ -179,10 +180,15 @@ const columns: ColumnProps[] = [
     render: ({ row }: { row: ApartmentInterface }) => {
       return (
         <el-switch
-          active-value={'已发布'}
-          inactive-value={'未发布'}
+          active-value={ApartmentReleaseStatus.NOT_RELEASED}
+          inactive-value={ApartmentReleaseStatus.RELEASED}
           v-model={row.isRelease}
-          onChange={() => updateApartmentReleaseStatus(row.id, row.isRelease)}
+          onChange={() =>
+            updateApartmentReleaseStatus(
+              row.id,
+              row.isRelease as ApartmentReleaseStatus,
+            )
+          }
         ></el-switch>
       )
     },
