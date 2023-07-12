@@ -46,6 +46,11 @@ import {
   RegionInterface,
   RoomInterface,
 } from '@/api/apartmentManagement/types'
+import {
+  getLabelByValue,
+  RoomCheckInStatus,
+  RoomCheckInStatusMap,
+} from '@/enums/constEnums'
 const router = useRouter()
 
 // *获取 ProTable 元素，调用其获取刷新数据方法
@@ -194,10 +199,14 @@ const columns: ColumnProps[] = [
     prop: 'checkInStatus',
     label: '入住状态',
     render: ({ row }: { row: RoomInterface }) => {
-      return row.checkInStatus === '未入住' ? (
-        <el-tag type="info">{row.checkInStatus}</el-tag>
+      return row.checkInStatus === RoomCheckInStatus.NOT_CHECK_IN ? (
+        <el-tag type="info">
+          {getLabelByValue(RoomCheckInStatusMap, row.checkInStatus)}
+        </el-tag>
       ) : (
-        <el-tag type="success">{row.checkInStatus}</el-tag>
+        <el-tag type="success">
+          {getLabelByValue(RoomCheckInStatusMap, row.checkInStatus)}
+        </el-tag>
       )
     },
   },

@@ -80,3 +80,12 @@ export const RoomReleaseStatusMap = [
   { label: '未发布', value: RoomReleaseStatus.NOT_RELEASED },
   { label: '已发布', value: RoomReleaseStatus.RELEASED },
 ]
+// 房间的入住状态
+export enum RoomCheckInStatus {
+  NOT_CHECK_IN = '未入住',
+  CHECK_IN = '已入住',
+}
+export const RoomCheckInStatusMap = [
+  { label: '未入住', value: RoomCheckInStatus.NOT_CHECK_IN },
+  { label: '已入住', value: RoomCheckInStatus.CHECK_IN },
+]
