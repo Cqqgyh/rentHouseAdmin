@@ -192,6 +192,7 @@ import {
   ApartmentReleaseStatus,
   getLabelByValue,
   ApartmentReleaseStatusMap,
+  BuildingType,
 } from '@/enums/constEnums'
 import {
   getApartmentById,
@@ -424,7 +425,7 @@ const feeTreeSelectRef = ref<InstanceType<typeof ElTree>>()
 // 获取配套信息
 async function getFacilityInfoListHandle() {
   try {
-    const { data } = await getFacilityInfoList('公寓')
+    const { data } = await getFacilityInfoList(BuildingType.APARTMENT)
     facilityInfoList.value = data
   } catch (error) {
     console.log(error)
@@ -433,7 +434,7 @@ async function getFacilityInfoListHandle() {
 // 获取标签信息
 async function getLabelInfoListHandle() {
   try {
-    const { data } = await getLabelInfoList('公寓')
+    const { data } = await getLabelInfoList(BuildingType.APARTMENT)
     labelInfoList.value = data
   } catch (error) {
     console.log(error)
