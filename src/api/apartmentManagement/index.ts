@@ -240,4 +240,22 @@ export function saveOrUpdateAttrValue(
 export function deleteAttrValueById(id: number | string) {
   return http.delete(`/admin/attr/value/deleteById?id=${id}`)
 }
+/**
+ * @description 新增或更新属性Key
+ * @param params
+ */
+export function saveOrUpdateAttrKey(
+  params: Pick<AttrValueInfoInterface, 'name' | 'id'> & {
+    id?: number | string
+  },
+) {
+  return http.post(`/admin/attr/key/saveOrUpdate`, params)
+}
+/**
+ * @description 根据id删除属性Key
+ * @param id
+ */
+export function deleteAttrKeyById(id: number | string) {
+  return http.delete(`/admin/attr/key/deleteById?attrKeyId=${id}`)
+}
 //#endregion

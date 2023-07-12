@@ -5,7 +5,7 @@
     :title="title"
   >
     <el-form ref="formRef" :model="formData" :rules="rules" label-width="120px">
-      <el-form-item label="属性值名称" prop="name">
+      <el-form-item label="属性名称" prop="name">
         <el-input v-model="formData.name" autocomplete="off" />
       </el-form-item>
     </el-form>
@@ -21,22 +21,20 @@
 import { computed, ref } from 'vue'
 import { AttrValueInfoInterface } from '@/api/apartmentManagement/types'
 import { ElMessage, FormInstance } from 'element-plus'
-import { saveOrUpdateAttrValue } from '@/api/apartmentManagement'
+import { saveOrUpdateAttrKey } from '@/api/apartmentManagement'
 const props = defineProps({
-  updateRoomBase: {
+  updateRoomBaseAddOrEditAttr: {
     type: Function,
     default: () => ({}),
   },
 })
 const defaultFormData = {
   id: '',
-  attrKeyId: '',
   name: '',
-  attrKeyName: '',
 }
 const formRef = ref<FormInstance>()
 const dialogFormVisible = ref(false)
-const formData = ref<AttrValueInfoInterface & { attrKeyName: string }>({
+const formData = ref<Pick<AttrValueInfoInterface, 'name' | 'id'>>({
   ...defaultFormData,
 })
 // 表单验证规则
@@ -44,9 +42,7 @@ const rules = ref({
   name: [{ required: true, message: '请输入属性名称', trigger: 'blur' }],
 })
 const title = computed(() => {
-  return (
-    (formData.value.id ? '修改' : '新增') + formData.value.attrKeyName + '属性'
-  )
+  return (formData.value.id ? '修改' : '新增') + '属性'
 })
 // 展示方法
 const show = (data: Partial<AttrValueInfoInterface> = defaultFormData) => {
@@ -63,8 +59,8 @@ const close = () => {
 const submitHandle = () => {
   formRef.value?.validate(async (valid) => {
     if (valid) {
-      await saveOrUpdateAttrValue(formData.value)
-      await props.updateRoomBase()
+      await saveOrUpdateAttrKey(formData.value)
+      await props.updateRoomBaseAddOrEditAttr()
       ElMessage.success('操作成功')
       close()
     } else {
