@@ -97,7 +97,9 @@ export function getFacilityInfoList(type: BuildingType | null = null) {
  * @description 查询标签信息列表
  */
 export function getLabelInfoList(type: BuildingType | null = null) {
-  return http.get<LabelInfoInterface[]>(`/admin/label/list?type=${type}`)
+  return http.get<LabelInfoInterface[]>(
+    `/admin/label/list${type ? `?type=${type}` : ''}`,
+  )
 }
 /**
  * @description 查询杂费信息列表
@@ -199,10 +201,26 @@ export function saveOrUpdateFacilityInfo(
   return http.post(`/admin/facility/addOrUpdate`, params)
 }
 /**
- * @description 新增或修改配套信息
+ * @description 根据id删除配套信息
  * @param id
  */
 export function deleteFacilityInfoById(id: number | string) {
   return http.delete(`/admin/facility/deleteById?id=${id}`)
+}
+/**
+ * @description 新增或修改标签信息
+ * @param params
+ */
+export function saveOrUpdateLabelInfo(
+  params: LabelInfoInterface & { id?: number | string },
+) {
+  return http.post(`/admin/label/addOrUpdate`, params)
+}
+/**
+ * @description 根据id删除标签信息
+ * @param id
+ */
+export function deleteLabelInfoById(id: number | string) {
+  return http.delete(`/admin/label/deleteById?id=${id}`)
 }
 //#endregion

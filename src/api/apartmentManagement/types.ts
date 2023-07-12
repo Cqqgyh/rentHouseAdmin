@@ -66,7 +66,7 @@ export interface FacilityInfoInterface {
 }
 // 标签信息
 export interface LabelInfoInterface {
-  id: number
+  id: number | string
   type: string
   name: string
 }
