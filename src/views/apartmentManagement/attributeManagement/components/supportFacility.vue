@@ -85,8 +85,8 @@ const deleteFacilityHandle = async (item: FacilityInfoInterface) => {
   console.log('删除配套', item)
   try {
     await deleteFacilityInfoById(item.id)
-    ElMessage.success('操作成功')
     await getFacilityInfoListHandle()
+    ElMessage.success('操作成功')
   } catch (error) {
     console.log(error)
   }

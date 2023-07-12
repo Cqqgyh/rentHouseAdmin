@@ -84,8 +84,8 @@ const deleteLabelHandle = async (item: LabelInfoInterface) => {
   console.log('删除标签', item)
   try {
     await deleteLabelInfoById(item.id)
-    ElMessage.success('操作成功')
     await getLabelInfoListHandle()
+    ElMessage.success('操作成功')
   } catch (error) {
     console.log(error)
   }
