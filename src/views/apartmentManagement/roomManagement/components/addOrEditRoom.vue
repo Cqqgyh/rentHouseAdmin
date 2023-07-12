@@ -118,11 +118,11 @@
           @node-click="attrNodeClickHandle"
         ></el-tree-select>
       </el-form-item>
-      <el-form-item label="公寓配套" prop="facilityInfoIds">
+      <el-form-item label="房间配套" prop="facilityInfoIds">
         <el-select
           style="width: 100%"
           v-model="formData.facilityInfoIds"
-          placeholder="请选择公寓配套"
+          placeholder="请选择房间配套"
           multiple
           clearable
         >
@@ -134,11 +134,11 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="公寓标签" prop="labelIds">
+      <el-form-item label="房间标签" prop="labelIds">
         <el-select
           style="width: 100%"
           v-model="formData.labelInfoIds"
-          placeholder="请选择公寓标签"
+          placeholder="请选择房间标签"
           multiple
           clearable
         >
@@ -232,6 +232,7 @@ import UploadImg from '@/components/uploadImg/uploadImg.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElTree } from 'element-plus/es/components/tree'
 import {
+  BuildingType,
   getLabelByValue,
   RoomReleaseStatus,
   RoomReleaseStatusMap,
@@ -437,7 +438,7 @@ const attrTreeSelectRef = ref<InstanceType<typeof ElTree>>()
 // 获取配套信息
 async function getFacilityInfoListHandle() {
   try {
-    const { data } = await getFacilityInfoList('房间')
+    const { data } = await getFacilityInfoList(BuildingType.ROOM)
     facilityInfoList.value = data
   } catch (error) {
     console.log(error)
@@ -446,7 +447,7 @@ async function getFacilityInfoListHandle() {
 // 获取标签信息
 async function getLabelInfoListHandle() {
   try {
-    const { data } = await getLabelInfoList('房间')
+    const { data } = await getLabelInfoList(BuildingType.ROOM)
     labelInfoList.value = data
   } catch (error) {
     console.log(error)

@@ -89,3 +89,12 @@ export const RoomCheckInStatusMap = [
   { label: '未入住', value: RoomCheckInStatus.NOT_CHECK_IN },
   { label: '已入住', value: RoomCheckInStatus.CHECK_IN },
 ]
+//type: '公寓' | '房间'
+export enum BuildingType {
+  APARTMENT = '公寓',
+  ROOM = '房间',
+}
+export const ApartmentOrRoomTypeMap = [
+  { label: '公寓', value: BuildingType.APARTMENT },
+  { label: '房间', value: BuildingType.ROOM },
+]

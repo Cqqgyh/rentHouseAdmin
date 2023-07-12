@@ -14,7 +14,11 @@ import {
   TermInfoInterface,
 } from '@/api/apartmentManagement/types'
 import { PageRes } from '@/api/types'
-import { ApartmentReleaseStatus, RoomReleaseStatus } from '@/enums/constEnums'
+import {
+  ApartmentReleaseStatus,
+  BuildingType,
+  RoomReleaseStatus,
+} from '@/enums/constEnums'
 //#region <公寓>
 /**
  * @description 分页查询公寓信息列表
@@ -84,7 +88,7 @@ export function deleteApartmentById(id: number | string) {
  * @description 查询配套信息列表
  * @param type
  */
-export function getFacilityInfoList(type: '公寓' | '房间' | null = null) {
+export function getFacilityInfoList(type: BuildingType | null = null) {
   return http.get<FacilityInfoInterface[]>(
     `/admin/facility/list${type ? `?type=${type}` : ''}`,
   )
@@ -92,7 +96,7 @@ export function getFacilityInfoList(type: '公寓' | '房间' | null = null) {
 /**
  * @description 查询标签信息列表
  */
-export function getLabelInfoList(type: '公寓' | '房间') {
+export function getLabelInfoList(type: BuildingType | null = null) {
   return http.get<LabelInfoInterface[]>(`/admin/label/list?type=${type}`)
 }
 /**
