@@ -180,8 +180,8 @@ const columns: ColumnProps[] = [
     render: ({ row }: { row: ApartmentInterface }) => {
       return (
         <el-switch
-          active-value={ApartmentReleaseStatus.NOT_RELEASED}
-          inactive-value={ApartmentReleaseStatus.RELEASED}
+          active-value={ApartmentReleaseStatus.RELEASED}
+          inactive-value={ApartmentReleaseStatus.NOT_RELEASED}
           v-model={row.isRelease}
           onChange={() =>
             updateApartmentReleaseStatus(
