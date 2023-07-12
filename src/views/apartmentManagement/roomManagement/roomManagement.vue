@@ -50,6 +50,7 @@ import {
   getLabelByValue,
   RoomCheckInStatus,
   RoomCheckInStatusMap,
+  RoomReleaseStatus,
 } from '@/enums/constEnums'
 const router = useRouter()
 
@@ -212,14 +213,16 @@ const columns: ColumnProps[] = [
   },
   {
     prop: 'isRelease',
-    label: '上架',
+    label: '发布状态',
     render: ({ row }: { row: RoomInterface }) => {
       return (
         <el-switch
-          active-value={'已发布'}
-          inactive-value={'未发布'}
+          active-value={RoomReleaseStatus.RELEASED}
+          inactive-value={RoomReleaseStatus.NOT_RELEASED}
           v-model={row.isRelease}
-          onChange={() => updateRoomReleaseStatus(row.id, row.isRelease)}
+          onChange={() =>
+            updateRoomReleaseStatus(row.id, row.isRelease as RoomReleaseStatus)
+          }
         ></el-switch>
       )
     },

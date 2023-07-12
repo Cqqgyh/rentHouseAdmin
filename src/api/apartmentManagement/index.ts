@@ -14,7 +14,7 @@ import {
   TermInfoInterface,
 } from '@/api/apartmentManagement/types'
 import { PageRes } from '@/api/types'
-import { ApartmentReleaseStatus } from '@/enums/constEnums'
+import { ApartmentReleaseStatus, RoomReleaseStatus } from '@/enums/constEnums'
 //#region <公寓>
 /**
  * @description 分页查询公寓信息列表
@@ -137,7 +137,10 @@ export function getApartmentListByDistrictId(districtId: number | string) {
  * @param id
  * @param status
  */
-export function updateRoomReleaseStatus(id: number | string, status: string) {
+export function updateRoomReleaseStatus(
+  id: number | string,
+  status: RoomReleaseStatus,
+) {
   return http.post(
     `/admin/room/updateReleaseStatusById?id=${id}&status=${status}`,
   )

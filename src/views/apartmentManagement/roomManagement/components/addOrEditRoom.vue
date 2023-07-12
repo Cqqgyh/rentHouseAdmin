@@ -89,8 +89,19 @@
       </el-form-item>
       <el-form-item label="是否发布" prop="isRelease">
         <el-radio-group v-model="formData.isRelease" class="ml-4">
-          <el-radio label="未发布">未发布</el-radio>
-          <el-radio label="已发布">已发布</el-radio>
+          <el-radio :label="RoomReleaseStatus.NOT_RELEASED">
+            {{
+              getLabelByValue(
+                RoomReleaseStatusMap,
+                RoomReleaseStatus.NOT_RELEASED,
+              )
+            }}
+          </el-radio>
+          <el-radio :label="RoomReleaseStatus.RELEASED">
+            {{
+              getLabelByValue(RoomReleaseStatusMap, RoomReleaseStatus.RELEASED)
+            }}
+          </el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="房间属性" prop="attrValueIds">
@@ -220,6 +231,11 @@ import { UploadFile } from 'element-plus/es/components/upload/src/upload'
 import UploadImg from '@/components/uploadImg/uploadImg.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElTree } from 'element-plus/es/components/tree'
+import {
+  getLabelByValue,
+  RoomReleaseStatus,
+  RoomReleaseStatusMap,
+} from '@/enums/constEnums'
 const route = useRoute()
 const router = useRouter()
 //#region <表单相关>
@@ -230,7 +246,7 @@ const formData = ref<SaveRoomInterface>({
   roomNumber: '',
   rent: 0,
   apartmentId: '',
-  isRelease: '未发布',
+  isRelease: RoomReleaseStatus.NOT_RELEASED,
   // 	属性信息列表
   attrValueIds: [],
   // 	配套id
