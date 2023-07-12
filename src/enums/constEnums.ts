@@ -94,7 +94,7 @@ export enum BuildingType {
   APARTMENT = '公寓',
   ROOM = '房间',
 }
-export const ApartmentOrRoomTypeMap = [
+export const BuildingTypeTypeMap = [
   { label: '公寓', value: BuildingType.APARTMENT },
   { label: '房间', value: BuildingType.ROOM },
 ]

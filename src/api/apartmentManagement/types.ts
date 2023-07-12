@@ -59,7 +59,7 @@ export interface AddressOptionsInterface {
 }
 // 配套信息
 export interface FacilityInfoInterface {
-  id: number
+  id: number | string
   type: string
   name: string
   icon: string | null

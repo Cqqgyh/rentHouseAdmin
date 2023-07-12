@@ -188,3 +188,21 @@ export function getTermList() {
   return http.get<TermInfoInterface[]>(`/admin/term/list`)
 }
 //#endregion
+//#region <属性>
+/**
+ * @description 新增或修改配套信息
+ * @param params
+ */
+export function saveOrUpdateFacilityInfo(
+  params: FacilityInfoInterface & { id?: number | string },
+) {
+  return http.post(`/admin/facility/addOrUpdate`, params)
+}
+/**
+ * @description 新增或修改配套信息
+ * @param id
+ */
+export function deleteFacilityInfoById(id: number | string) {
+  return http.delete(`/admin/facility/deleteById?id=${id}`)
+}
+//#endregion
