@@ -38,7 +38,7 @@ export interface ApartmentInterface {
   // 	公寓杂费值id
   feeValueIds?: number[]
   // 	公寓杂费值信息
-  feeValueVoList?: FeeInfoInfoInterface['feeValueList']
+  feeValueVoList?: FeeInfoInterface['feeValueList']
   // 图片信息
   graphVoList?:
     | {
@@ -71,15 +71,17 @@ export interface LabelInfoInterface {
   name: string
 }
 // 杂费值信息
-export interface FeeInfoInfoInterface {
-  id: number
+export interface FeeInfoInterface {
+  id: number | string
   name: string
-  feeValueList: {
-    id: number
-    name: string
-    unit: string
-    feeKeyId: number
-  }[]
+  feeValueList: FeeValueInfoInterface[]
+}
+export interface FeeValueInfoInterface {
+  id: number | string
+  name: string
+  unit: string
+  feeKeyId: number | string
+  feeKeyName?: number | string
 }
 // 树形结构
 export interface TreeData {

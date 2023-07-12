@@ -5,7 +5,8 @@ import {
   AttrInfoInfoInterface,
   AttrValueInfoInterface,
   FacilityInfoInterface,
-  FeeInfoInfoInterface,
+  FeeInfoInterface,
+  FeeValueInfoInterface,
   LabelInfoInterface,
   PaymentInfoInterface,
   RegionInterface,
@@ -106,7 +107,7 @@ export function getLabelInfoList(type: BuildingType | null = null) {
  * @description 查询杂费信息列表
  */
 export function getFeeInfoList() {
-  return http.get<FeeInfoInfoInterface[]>(`/admin/fee/list`)
+  return http.get<FeeInfoInterface[]>(`/admin/fee/list`)
 }
 /**
  * @description 根据id获取公寓信息
@@ -257,5 +258,40 @@ export function saveOrUpdateAttrKey(
  */
 export function deleteAttrKeyById(id: number | string) {
   return http.delete(`/admin/attr/key/deleteById?attrKeyId=${id}`)
+}
+
+/**
+ * @description 新增或更新杂费Value
+ * @param params
+ */
+export function saveOrUpdateFeeValue(
+  params: FeeValueInfoInterface & { id?: number | string },
+) {
+  return http.post(`/admin/fee/value/saveOrUpdate`, params)
+}
+/**
+ * @description 根据id删除杂费Value
+ * @param id
+ */
+export function deleteFeeValueById(id: number | string) {
+  return http.delete(`/admin/fee/value/deleteById?id=${id}`)
+}
+/**
+ * @description 新增或更新杂费Key
+ * @param params
+ */
+export function saveOrUpdateFeeKey(
+  params: Pick<FeeValueInfoInterface, 'name' | 'id'> & {
+    id?: number | string
+  },
+) {
+  return http.post(`/admin/fee/key/saveOrUpdate`, params)
+}
+/**
+ * @description 根据id删除杂费Key
+ * @param id
+ */
+export function deleteFeeKeyById(id: number | string) {
+  return http.delete(`/admin/fee/key/deleteById?feeKeyId=${id}`)
 }
 //#endregion

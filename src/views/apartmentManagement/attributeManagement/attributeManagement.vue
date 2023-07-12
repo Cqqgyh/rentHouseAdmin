@@ -6,6 +6,8 @@
     <SupportLabel class="m-t-20"></SupportLabel>
     <!--    房间基本信息管理-->
     <SupportRoomBase class="m-t-20"></SupportRoomBase>
+    <!--    杂费信息管理-->
+    <SupportFee class="m-t-20"></SupportFee>
   </el-card>
 </template>
 
@@ -13,4 +15,5 @@
 import SupportFacility from '@/views/apartmentManagement/attributeManagement/components/supportFacility.vue'
 import SupportLabel from '@/views/apartmentManagement/attributeManagement/components/supportLabel.vue'
 import SupportRoomBase from '@/views/apartmentManagement/attributeManagement/components/supportRoomBase.vue'
+import SupportFee from '@/views/apartmentManagement/attributeManagement/components/supportFee.vue'
 </script>
