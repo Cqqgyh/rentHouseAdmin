@@ -8,7 +8,7 @@
     <el-form ref="formRef" :model="formData" :rules="rules" label-width="120px">
       <el-form-item label="属性名称" prop="name">
         <el-input
-          v-model="formData.name"
+          v-model.trim="formData.name"
           autocomplete="off"
           placeholder="请输入"
         />

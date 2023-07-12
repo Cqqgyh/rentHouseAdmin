@@ -3,10 +3,15 @@
     v-model="dialogFormVisible"
     :destroy-on-close="true"
     :title="title"
+    style="max-width: 700px"
   >
     <el-form ref="formRef" :model="formData" :rules="rules" label-width="120px">
       <el-form-item label="标签名称" prop="name">
-        <el-input v-model="formData.name" autocomplete="off" />
+        <el-input
+          v-model.trim="formData.name"
+          autocomplete="off"
+          placeholder="请输入"
+        />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -21,7 +26,7 @@
 import { computed, ref } from 'vue'
 import { LabelInfoInterface } from '@/api/apartmentManagement/types'
 import { BuildingTypeTypeMap, getLabelByValue } from '@/enums/constEnums'
-import { ElMessage, FormInstance } from 'element-plus'
+import { ElMessage, FormInstance, FormRules } from 'element-plus'
 import { saveOrUpdateLabelInfo } from '@/api/apartmentManagement'
 const props = defineProps({
   updateLabel: {
@@ -40,7 +45,7 @@ const formData = ref<LabelInfoInterface>({
   ...defaultFormData,
 })
 // 表单验证规则
-const rules = ref({
+const rules = ref<FormRules>({
   name: [{ required: true, message: '请输入标签名称', trigger: 'blur' }],
 })
 const title = computed(() => {
