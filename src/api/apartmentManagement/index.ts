@@ -3,6 +3,7 @@ import {
   ApartmentInterface,
   ApartmentListQueryInterface,
   AttrInfoInfoInterface,
+  AttrValueInfoInterface,
   FacilityInfoInterface,
   FeeInfoInfoInterface,
   LabelInfoInterface,
@@ -222,5 +223,21 @@ export function saveOrUpdateLabelInfo(
  */
 export function deleteLabelInfoById(id: number | string) {
   return http.delete(`/admin/label/deleteById?id=${id}`)
+}
+/**
+ * @description 新增或更新属性Value
+ * @param params
+ */
+export function saveOrUpdateAttrValue(
+  params: AttrValueInfoInterface & { id?: number | string },
+) {
+  return http.post(`/admin/attr/value/saveOrUpdate`, params)
+}
+/**
+ * @description 根据id删除属性Value
+ * @param id
+ */
+export function deleteAttrValueById(id: number | string) {
+  return http.delete(`/admin/attr/value/deleteById?id=${id}`)
 }
 //#endregion

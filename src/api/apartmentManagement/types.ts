@@ -157,13 +157,15 @@ export interface SaveRoomInterface {
 }
 // 属性信息列表
 export interface AttrInfoInfoInterface {
-  id: number
+  id: number | string
   name: string
-  attrValueList: {
-    id: number
-    name: string
-    attrKeyId: number
-  }[]
+  attrValueList: AttrValueInfoInterface[]
+}
+export interface AttrValueInfoInterface {
+  id: number | string
+  name: string
+  attrKeyId: number | string
+  attrKeyName?: string
 }
 // 支付方式信息列表
 export interface PaymentInfoInterface {
