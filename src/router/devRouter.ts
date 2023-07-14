@@ -150,6 +150,41 @@ export const devRoutes: RouteRecordRaw[] = [
         },
         children: [],
       },
+      {
+        name: 'rentManagement/term',
+        path: '/rentManagement/term',
+        redirect: '/rentManagement/term',
+        meta: {
+          title: '租约管理',
+          icon: 'UserFilled',
+        },
+        children: [
+          {
+            name: 'rentManagement/term/termManagement',
+            path: '/rentManagement/term/termManagement',
+            component: () => import('@/views/rentManagement/term/term.vue'),
+            meta: {
+              title: '租约管理',
+              icon: 'UserFilled',
+            },
+            children: [],
+          },
+          {
+            name: 'rentManagement/term/addOrEditTerm',
+            path: '/rentManagement/term/addOrEditTerm',
+            component: () =>
+              import(
+                '@/views/rentManagement/term/components/addOrEditTerm.vue'
+              ),
+            meta: {
+              title: '租约详情',
+              icon: 'Document',
+              isHide: true,
+              activeMenu: '/rentManagement/term/termManagement',
+            },
+          },
+        ],
+      },
     ],
   },
   // // 网站概述
