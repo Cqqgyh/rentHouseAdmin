@@ -26,6 +26,7 @@
 import { RouteRecordRaw } from 'vue-router'
 const LAYOUT = () => import('@/layouts/index.vue')
 export const devRoutes: RouteRecordRaw[] = [
+  // 公寓管理
   {
     name: 'apartmentManagement',
     path: '/apartmentManagement',
@@ -121,6 +122,30 @@ export const devRoutes: RouteRecordRaw[] = [
           ),
         meta: {
           title: '属性管理',
+          icon: 'UserFilled',
+        },
+        children: [],
+      },
+    ],
+  },
+  // 租赁管理
+  {
+    name: 'rentManagement',
+    path: '/rentManagement',
+    component: LAYOUT,
+    redirect: '/rentManagement/appointment',
+    meta: {
+      title: '租赁管理',
+      icon: 'UserFilled',
+    },
+    children: [
+      {
+        name: 'rentManagement/appointment',
+        path: '/rentManagement/appointment',
+        component: () =>
+          import('@/views/rentManagement/appointment/appointment.vue'),
+        meta: {
+          title: '预约看房',
           icon: 'UserFilled',
         },
         children: [],
