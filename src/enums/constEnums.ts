@@ -111,3 +111,29 @@ export const AppointmentStatusMap = [
   { label: '已看房', value: AppointmentStatus.VIEWED },
   { label: '已过期', value: AppointmentStatus.EXPIRED },
 ]
+// 	租约状态,可用值:1,2,3,4,5,6
+export enum AgreementStatus {
+  WAITING = 1,
+  SIGNED = 2,
+  CANCELLED = 3,
+  EXPIRED = 4,
+  TO_BE_CONFIRMED = 5,
+  CONFIRMED = 6,
+}
+export const AgreementStatusMap = [
+  { label: '签约待确认', value: AgreementStatus.WAITING },
+  { label: '已签约', value: AgreementStatus.SIGNED },
+  { label: '已取消', value: AgreementStatus.CANCELLED },
+  { label: '已到期', value: AgreementStatus.EXPIRED },
+  { label: '退租待确认', value: AgreementStatus.TO_BE_CONFIRMED },
+  { label: '已退租', value: AgreementStatus.CONFIRMED },
+]
+// 租约来源,可用值:1,2
+export enum AgreementSource {
+  NEW = 1,
+  RENEW = 2,
+}
+export const AgreementSourceMap = [
+  { label: '新签', value: AgreementSource.NEW },
+  { label: '续约', value: AgreementSource.RENEW },
+]
