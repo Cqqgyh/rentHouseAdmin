@@ -72,8 +72,16 @@ const areaInfo = reactive({
 })
 // *表格配置项
 const columns: ColumnProps[] = [
-  { prop: 'name', label: '姓名', search: { el: 'input' } },
-  { prop: 'phone', label: '手机', search: { el: 'input' } },
+  {
+    prop: 'name',
+    label: '姓名',
+    search: { el: 'input', props: { placeholder: '请输入姓名' } },
+  },
+  {
+    prop: 'phone',
+    label: '手机',
+    search: { el: 'input', props: { placeholder: '请输入手机号' } },
+  },
   {
     prop: 'provinceId',
     label: '省份',
