@@ -10,7 +10,7 @@ import router from './router'
 import registerGlobComp from './components'
 import directives from '@/directives/index'
 // 解决谷歌浏览器warning: Added non-passive event listener to a scroll-blocking ‘touchmove’ event. Consider marking event handler as ‘passive’ to make the page more responsive.
-import 'default-passive-events'
+// import 'default-passive-events'
 // element默认主题
 import 'element-plus/dist/index.css'
 // 公共样式，包含自定义暗黑模式，element重置样式
