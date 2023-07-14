@@ -98,3 +98,16 @@ export const BuildingTypeTypeMap = [
   { label: '公寓', value: BuildingType.APARTMENT },
   { label: '房间', value: BuildingType.ROOM },
 ]
+// 预约状态,可用值:1,2,3,4
+export enum AppointmentStatus {
+  WAITING = 1,
+  CANCELLED = 2,
+  VIEWED = 3,
+  EXPIRED = 4,
+}
+export const AppointmentStatusMap = [
+  { label: '待看房', value: AppointmentStatus.WAITING },
+  { label: '已取消', value: AppointmentStatus.CANCELLED },
+  { label: '已看房', value: AppointmentStatus.VIEWED },
+  { label: '已过期', value: AppointmentStatus.EXPIRED },
+]
