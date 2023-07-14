@@ -110,7 +110,7 @@ export interface RoomInterface {
   roomNumber: number | string
   rent: number | string
   apartmentId: number | string
-  isRelease: string
+  isRelease: string | number
   leaseEndDate: string
   checkInStatus: string
   apartmentInfo: Omit<ApartmentInterface, 'totalRoomCount' | 'freeRoomCount'>
@@ -138,7 +138,7 @@ export interface SaveRoomInterface {
   roomNumber: string
   rent: number | string
   apartmentId: number | string
-  isRelease: string
+  isRelease: string | number
   // 	属性信息列表
   attrValueIds: number[]
   // 	配套id
@@ -184,7 +184,4 @@ export interface TermInfoInterface {
 }
 //#endregion
 //#region <属性>
-export interface SupportFacilityInterface {
-  [key: string]: FacilityInfoInterface[]
-}
 //#endregion
