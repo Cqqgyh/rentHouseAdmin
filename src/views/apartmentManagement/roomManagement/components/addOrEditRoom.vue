@@ -536,11 +536,11 @@ async function getRoomInfoByIdHandle(id: number | string) {
     delete data.attrValueVoList
     // 	配套ids
     formData.value.facilityInfoIds =
-      data.facilityInfoList?.map((item) => item.id) || []
+      (data.facilityInfoList?.map((item) => item.id) as number[]) || []
     delete data.facilityInfoList
     // 	标签ids
     formData.value.labelInfoIds =
-      data.labelInfoList?.map((item) => item.id) || []
+      (data.labelInfoList?.map((item) => item.id) as number[]) || []
     delete data.labelInfoList
     // 	支付方式ids
     formData.value.paymentTypeIds =
