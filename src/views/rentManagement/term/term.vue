@@ -451,7 +451,7 @@ const cancelLeaseHandle = async (row: AgreementInfoInterface) => {
   await useHandleData(
     updateAgreementStatusById,
     { id: row.id, status: AgreementStatus.CANCELLED },
-    `操作成功`,
+    `取消租约`,
   )
   // 修改row
   proTable.value?.getTableList()
@@ -461,7 +461,7 @@ const confirmThrowLeaseHandle = async (row: AgreementInfoInterface) => {
   await useHandleData(
     updateAgreementStatusById,
     { id: row.id, status: AgreementStatus.CONFIRMED },
-    `操作成功`,
+    `确认退租`,
   )
   // 修改row
   proTable.value?.getTableList()
