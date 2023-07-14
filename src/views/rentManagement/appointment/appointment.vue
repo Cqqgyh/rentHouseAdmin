@@ -11,7 +11,11 @@
       <!-- 表格操作 -->
       <template #operation="scope">
         <el-button
-          type="success"
+          :type="
+            scope.row.appointmentStatus === AppointmentStatus.WAITING
+              ? 'primary'
+              : 'info'
+          "
           icon="View"
           :disabled="scope.row.appointmentStatus !== AppointmentStatus.WAITING"
           @click="takeLookHandle(scope.row)"
@@ -43,7 +47,11 @@ import {
   AppointmentStatusMap,
 } from '@/enums/constEnums'
 import { AppointmentInfoInterface } from '@/api/rentManagement/types'
-import { getAppointmentInfoList } from '@/api/rentManagement'
+import {
+  getAppointmentInfoList,
+  updateAppointmentStatusById,
+} from '@/api/rentManagement'
+import { ElMessage } from 'element-plus'
 
 // *获取 ProTable 元素，调用其获取刷新数据方法
 const proTable = ref<InstanceType<typeof ProTable>>()
@@ -365,9 +373,16 @@ const dataCallback = (data: any) => {
     total: data?.total,
   }
 }
-// 查看
-const takeLookHandle = (row: AppointmentInfoInterface) => {
-  console.log(row)
+// 带看
+const takeLookHandle = async (row: AppointmentInfoInterface) => {
+  try {
+    await updateAppointmentStatusById(row.id, AppointmentStatus.VIEWED)
+    proTable.value?.getTableList()
+    //   操作成功
+    ElMessage.success('操作成功')
+  } catch (error) {
+    console.log(error)
+  }
 }
 onMounted(() => {
   // 获取省份
