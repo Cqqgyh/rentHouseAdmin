@@ -423,7 +423,6 @@ const dataCallback = (data: any) => {
 }
 // 查看
 const editHandle = (row: AgreementInfoInterface) => {
-  console.log(row)
   router.push({
     path: '/rentManagement/term/addOrEditTerm',
     query: {
