@@ -498,11 +498,13 @@ async function getApartmentInfoByIdHandle(id: number | string) {
   try {
     const { data } = await getApartmentById(id)
     // 构造表单数据
-    data.facilityInfoIds = data.facilityInfoList?.map((item) => item.id)
+    data.facilityInfoIds = data.facilityInfoList?.map(
+      (item) => item.id,
+    ) as number[]
     delete data.facilityInfoList
-    data.labelIds = data.labelInfoList?.map((item) => item.id)
+    data.labelIds = data.labelInfoList?.map((item) => item.id) as number[]
     delete data.labelInfoList
-    data.feeValueIds = data.feeValueVoList?.map((item) => item.id)
+    data.feeValueIds = data.feeValueVoList?.map((item) => item.id) as number[]
     delete data.feeValueVoList
     addressDetailOptions.value = [
       {
