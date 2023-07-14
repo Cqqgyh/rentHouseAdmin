@@ -2,7 +2,7 @@
  * @Author: cqq 945327638@qq.com
  * @Date: 2023-05-23 10:34:35
  * @LastEditors: cqq 945327638@qq.com
- * @LastEditTime: 2023-05-26 18:48:05
+ * @LastEditTime: 2023-07-14 09:12:05
  * @FilePath: \listen-to-books-admin\src\enums\constEnums.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -63,8 +63,8 @@ export const ButtonPermission = {
 }
 // 公寓的发布状态
 export enum ApartmentReleaseStatus {
-  NOT_RELEASED = '未发布',
-  RELEASED = '已发布',
+  NOT_RELEASED = 0,
+  RELEASED = 1,
 }
 // 公寓的发布状态
 export const ApartmentReleaseStatusMap = [
@@ -73,8 +73,8 @@ export const ApartmentReleaseStatusMap = [
 ]
 // 房间的发布状态
 export enum RoomReleaseStatus {
-  NOT_RELEASED = '未发布',
-  RELEASED = '已发布',
+  NOT_RELEASED = 0,
+  RELEASED = 1,
 }
 export const RoomReleaseStatusMap = [
   { label: '未发布', value: RoomReleaseStatus.NOT_RELEASED },
@@ -91,8 +91,8 @@ export const RoomCheckInStatusMap = [
 ]
 //type: '公寓' | '房间'
 export enum BuildingType {
-  APARTMENT = '公寓',
-  ROOM = '房间',
+  APARTMENT = 1,
+  ROOM = 2,
 }
 export const BuildingTypeTypeMap = [
   { label: '公寓', value: BuildingType.APARTMENT },
