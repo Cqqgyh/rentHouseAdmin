@@ -137,3 +137,12 @@ export const AgreementSourceMap = [
   { label: '新签', value: AgreementSource.NEW },
   { label: '续约', value: AgreementSource.RENEW },
 ]
+//	用户账号状态 "0": "禁用","1": "正常"
+export enum UserStatus {
+  DISABLED = 0,
+  NORMAL = 1,
+}
+export const UserStatusMap = [
+  { label: '禁用', value: UserStatus.DISABLED },
+  { label: '正常', value: UserStatus.NORMAL },
+]

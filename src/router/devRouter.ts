@@ -187,6 +187,29 @@ export const devRoutes: RouteRecordRaw[] = [
       },
     ],
   },
+  // 用户管理
+  {
+    name: 'userManagement',
+    path: '/userManagement',
+    component: LAYOUT,
+    redirect: '/userManagement/userManagement',
+    meta: {
+      title: '用户管理',
+      icon: 'UserFilled',
+    },
+    children: [
+      {
+        name: 'userManagement/userManagement',
+        path: '/userManagement/userManagement',
+        component: () => import('@/views/userManagement/userManagement.vue'),
+        meta: {
+          title: '用户管理',
+          icon: 'UserFilled',
+        },
+        children: [],
+      },
+    ],
+  },
   // // 网站概述
   // {
   //   name: 'websiteOverview',
