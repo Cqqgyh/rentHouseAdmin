@@ -1,6 +1,6 @@
 // 高德地图hooks
 import AMapLoader from '@amap/amap-jsapi-loader'
-import { AMAP_MAP_KEY, AMAP_MAP_SECURITY_KEY } from '@/config/config'
+import { AMAP_MAP_KEY, AMAP_MAP_SERVICE_HOST } from '@/config/config'
 import { ElMessage } from 'element-plus'
 import { onMounted, onUnmounted, ref } from 'vue'
 
@@ -10,7 +10,8 @@ export const useMap = ({ domId }: { domId?: string } = {}) => {
   async function initMap() {
     try {
       ;(window as any)._AMapSecurityConfig = {
-        securityJsCode: AMAP_MAP_SECURITY_KEY,
+        // securityJsCode: AMAP_MAP_SECURITY_KEY,
+        serviceHost: AMAP_MAP_SERVICE_HOST,
       }
       AMap.value = await AMapLoader.load({
         key: AMAP_MAP_KEY, // 申请好的Web端开发者Key，首次调用 load 时必填

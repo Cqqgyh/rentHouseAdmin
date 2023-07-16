@@ -373,22 +373,29 @@ const { AMap } = useMap()
 // 动态地址改查询
 function remoteMethod(keywords: string) {
   if (keywords.trim()) {
-    keywords +=
-      formData.value.districtName +
-      formData.value.cityName +
-      formData.value.provinceName
+    const provinceName =
+      areaInfo.provinceList.find(
+        (item) => item.id === formData.value.provinceId,
+      )?.name || ''
+
+    const districtName =
+      areaInfo.districtList.find(
+        (item) => item.id === formData.value.districtId,
+      )?.name || ''
+    keywords = provinceName + districtName + keywords
     AMap.value.plugin('AMap.AutoComplete', function () {
       // 实例化Autocomplete
       let autoOptions = {
         city: '全国',
       }
       console.log('AMap', AMap.value)
+      console.log('keywords', keywords)
       let autoComplete = new AMap.value.AutoComplete(autoOptions)
       autoComplete.search(keywords, function (status: any, result: any) {
         // 搜索成功时，result即是对应的匹配数据
         console.log('result', result)
         addressDetailOptions.value =
-          result?.tips.map((item: any) => {
+          result?.tips?.map((item: any) => {
             return {
               label: item.district + item.name + item.address,
               value: item.district + item.name + item.address,
