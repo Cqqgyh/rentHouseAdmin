@@ -2,8 +2,14 @@
 export interface LoginData {
   username: string
   password: string
+  captchaKey: string
+  captchaCode: string
 }
 
+export interface ValidateUCodeData {
+  image: string
+  key: string
+}
 export interface UserRes {
   userId?: string
   name: string

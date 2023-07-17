@@ -26,7 +26,7 @@ function createUserList() {
         },
       ],
       token:
-        'eyJhbGciOiJIUzM4NCIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAA_6tWKi5NUrJScnTx9fSLDw12DVLSUUqtKFCyMjSzsDS2NLUwNtVRKi1OLfJMAYoZ1gIA-UX3zzEAAAA.cG4N_02xxeALqLgAMkhbmPILXa1uotm14P2LnOSz8qZeDs7QeHrGWHmLjRkk2aZL',
+        'eyJhbGciOiJIUzM4NCIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAA_6tWKi5NUrJScnTx9fSLDw12DVLSUUqtKFCyMjQ3MrA0NjcxNdFRKi1OLfJMAYoZQth5ibmpQE1VGYl56cWJeUq1AECB2H1HAAAA.rXn8vJrR-RswpsoPbL49GQhMG6GCC449HJfZpTzwW_tV6aIUMJeVGjof3a69ASBk',
     },
     {
       userId: 2,
@@ -57,7 +57,7 @@ function createUserList() {
 const mockApiList = [
   // 用户登录
   {
-    url: '/admin/system/securityLogin/login',
+    url: '/admin/login',
     method: 'post',
     response: ({ body }: { body: any }) => {
       const { username, password } = body
@@ -68,9 +68,7 @@ const mockApiList = [
         return resultError('Incorrect username or password！')
       }
       const { token } = checkUser
-      return resultSuccess({
-        token,
-      })
+      return resultSuccess(token)
     },
   },
   // 获取用户信息
