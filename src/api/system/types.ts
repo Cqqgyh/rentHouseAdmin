@@ -18,29 +18,21 @@ export interface ReqPage {
   pageSize: number
 }
 export interface SysUserListParams extends ReqPage {
-  username?: string
-  roleId?: number
-  postId?: number
-  deptId?: number
+  name?: string
+  phone?: number
 }
 export interface SysUserInterfaceRes {
   id?: number
-  createTime?: string
-  updateTime?: string
-  isDeleted?: number
-  param?: Record<string, any>
   username?: string
   password?: string
   name?: string
   phone?: string
-  headUrl?: string
-  deptId?: number
   postId?: number
-  description?: string | null
   status?: number
-  roleList?: Role[]
   postName?: string
-  deptName?: string
+  type?: 0
+  avatarUrl?: string
+  additionalInfo?: string
 }
 
 export interface Role {
@@ -49,9 +41,10 @@ export interface Role {
   updateTime?: string | null
   isDeleted?: number | null
   param?: Record<string, any>
-  roleName: string
-  roleCode: string
+  name: string
+  code: string
   description: string | null
+  selected?: boolean
 }
 // 岗位接口
 export interface PostInterfacesRes {

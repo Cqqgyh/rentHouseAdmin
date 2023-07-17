@@ -146,3 +146,21 @@ export const UserStatusMap = [
   { label: '禁用', value: UserStatus.DISABLED },
   { label: '正常', value: UserStatus.NORMAL },
 ]
+// 系统用户类型 "0": "管理员","1": "普通用户"
+export enum SystemUserType {
+  ADMIN = 0,
+  NORMAL = 1,
+}
+export const SystemUserTypeMap = [
+  { label: '管理员', value: SystemUserType.ADMIN },
+  { label: '普通用户', value: SystemUserType.NORMAL },
+]
+// 系统用户状态  "0": "禁用","1": "正常"
+export enum SystemUserStatus {
+  DISABLED = 0,
+  NORMAL = 1,
+}
+export const SystemUserStatusMap = [
+  { label: '禁用', value: SystemUserStatus.DISABLED },
+  { label: '正常', value: SystemUserStatus.NORMAL },
+]

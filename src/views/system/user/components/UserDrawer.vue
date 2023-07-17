@@ -73,18 +73,19 @@
         </el-select>
       </el-form-item>
       <el-form-item
-        label="部门"
-        prop="deptId"
+        label="用户类型"
+        prop="type"
         v-if="drawerProps.title !== '分配角色'"
       >
-        <el-tree-select
-          v-model="drawerProps.rowData!.deptId"
-          :data="drawerProps.deptList"
-          check-strictly
-          node-key="id"
-          :props="{ children: 'children', label: 'name' }"
-          :render-after-expand="false"
-        />
+        <el-radio-group v-model="drawerProps.rowData!.type">
+          <el-radio
+            :label="item.value"
+            v-for="item in SystemUserTypeMap"
+            :key="item.value"
+          >
+            {{ item.label }}
+          </el-radio>
+        </el-radio-group>
       </el-form-item>
 
       <!--      分配角色-->
@@ -109,7 +110,7 @@
             :key="item.id"
             :label="item.id"
           >
-            {{ item.roleName }}
+            {{ item.name }}
           </el-checkbox>
         </el-checkbox-group>
       </el-form-item>
@@ -127,6 +128,7 @@
 import { ref, reactive } from 'vue'
 import { CheckboxValueType, ElMessage, FormInstance } from 'element-plus'
 import { DeptInterfacesRes, PostInterfacesRes, Role } from '@/api/system/types'
+import { SystemUserTypeMap } from '@/enums/constEnums'
 interface DrawerProps {
   title: string
   rowData?: any
@@ -156,7 +158,7 @@ const rules = reactive({
   name: [{ required: true, message: '请填写用户昵称', trigger: 'blur' }],
   phone: [{ required: true, message: '请填写用户手机', trigger: 'blur' }],
   postId: [{ required: true, message: '请选择所属岗位', trigger: 'change' }],
-  deptId: [{ required: true, message: '请选择所属部门', trigger: 'change' }],
+  type: [{ required: true, message: '请选择用户类型', trigger: 'change' }],
 })
 
 // drawer框状态
@@ -197,8 +199,10 @@ const handleCheckedChange = (value: CheckboxValueType[]) => {
 const acceptParams = (params: DrawerProps): void => {
   if (params.title === '分配角色') {
     const { list } = params
-    state.allRolesList = list.data.allRolesList
-    state.assginRoleList = list.data.assginRoleList.map((item: Role) => item.id)
+    state.allRolesList = list.data
+    state.assginRoleList = list?.data
+      .filter((item: Role) => item.selected)
+      .map((item: Role) => item.id)
     state.isIndeterminate = state.assginRoleList.length > 0 ? true : false
   }
   drawerProps.value = params

@@ -29,12 +29,10 @@ import {
  */
 export function getSysUserList(params: SysUserListParams) {
   return http.get<PageResponseInterface<SysUserInterfaceRes>>(
-    `/admin/system/sysUser/${params.pageNum}/${params.pageSize}`,
+    `/admin/system/user/page?current=${params.pageNum}&size=${params.pageSize}`,
     {
-      username: params.username,
-      roleId: params.roleId,
-      postId: params.postId,
-      deptId: params.deptId,
+      name: params.name,
+      phone: params.phone,
     },
   )
 }
@@ -44,7 +42,9 @@ export function getSysUserList(params: SysUserListParams) {
  * @param status
  */
 export function updateSysUserStatus(id: number, status: number) {
-  return http.get(`/admin/system/sysUser/updateStatus/${id}/${status}`)
+  return http.post(
+    `/admin/system/user/updateStatusByUserId?id=${id}&status=${status}`,
+  )
 }
 /**
  * @description 获取全部角色列表
@@ -56,7 +56,7 @@ export function getSysRoleList() {
  * @description 获取全部岗位列表
  */
 export function getSysPostList() {
-  return http.get<PostInterfacesRes[]>(`/admin/system/sysPost/findAll`)
+  return http.get<PostInterfacesRes[]>(`/admin/system/post/list`)
 }
 /**
  * @description 获取全部部门节点
@@ -68,20 +68,20 @@ export function getSysDeptTree() {
  * @description 新增用户
  */
 export function addSysUser(params: SysUserInterfaceRes) {
-  return http.post(`/admin/system/sysUser/save`, params)
+  return http.post(`/admin/system/user/saveOrUpdate`, params)
 }
 /**
  * @description 更新用户
  */
 export function updateSysUser(params: SysUserInterfaceRes) {
-  return http.put(`/admin/system/sysUser/update`, params)
+  return http.post(`/admin/system/user/saveOrUpdate`, params)
 }
 /**
  * @description 删除用户
  * @param id
  */
 export function deleteSysUserById(id: number | string) {
-  return http.delete(`/admin/system/sysRole/remove/${id}`)
+  return http.delete(`/admin/system/user/deleteById?id=${id}`)
 }
 /**
  * @description:   获取某个用户的所有角色
@@ -89,7 +89,7 @@ export function deleteSysUserById(id: number | string) {
  */
 export function getUserRolesListByUserId(userId: string | number) {
   return http.get<PageResponseInterface<UserRolesListInterfaceRes>>(
-    `/admin/system/sysRole/toAssign/${userId}`,
+    `/admin/system/user/listRoleByUserId?id=${userId}`,
   )
 }
 /**
