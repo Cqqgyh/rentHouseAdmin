@@ -49,6 +49,7 @@
           </template>
         </el-popconfirm>
         <el-icon
+          v-auth="[ButtonPermission.Apartment.Attribute.RoomInfo.Add]"
           class="item m-r-10 m-t-5 pointer"
           :size="35"
           color="#567722"
@@ -58,7 +59,12 @@
         </el-icon>
       </el-col>
     </el-row>
-    <el-button type="primary" class="m-t-20" @click="addAttrHandle">
+    <el-button
+      v-auth="[ButtonPermission.Apartment.Attribute.RoomInfo.AddNewItem]"
+      type="primary"
+      class="m-t-20"
+      @click="addAttrHandle"
+    >
       添加新属性
     </el-button>
     <!--    信息修改弹窗管理-->
@@ -87,6 +93,8 @@ import {
 import SupportRoomBaseDialog from '@/views/apartmentManagement/attributeManagement/components/supportRoomBaseDialog.vue'
 import { ElMessage } from 'element-plus'
 import SupportRoomBaseAddOrEditAttrDialog from '@/views/apartmentManagement/attributeManagement/components/supportRoomBaseAddOrEditAttrDialog.vue'
+import { ButtonPermission } from '@/enums/constEnums'
+import { useAuthButtons } from '@/hooks/useAuthButtons'
 const supportRoomBaseDialog = ref<InstanceType<typeof SupportRoomBaseDialog>>()
 const supportRoomBaseAddOrEditAttrDialog =
   ref<InstanceType<typeof SupportRoomBaseAddOrEditAttrDialog>>()
@@ -110,6 +118,13 @@ async function getRoomBaseInfoListHandle() {
 // 删除属性值
 const deleteRoomBaseHandle = async (item: AttrValueInfoInterface) => {
   console.log('删除', item)
+  if (
+    !useAuthButtons().BUTTONS.value[
+      ButtonPermission.Apartment.Attribute.RoomInfo.Remove
+    ]
+  ) {
+    return ElMessage.warning('您没有此项信息的删除权限')
+  }
   try {
     await deleteAttrValueById(item.id)
     await getRoomBaseInfoListHandle()
@@ -121,6 +136,13 @@ const deleteRoomBaseHandle = async (item: AttrValueInfoInterface) => {
 // 编辑属性值
 const editRoomBaseHandle = (item: AttrValueInfoInterface) => {
   console.log('编辑', item)
+  if (
+    !useAuthButtons().BUTTONS.value[
+      ButtonPermission.Apartment.Attribute.RoomInfo.Update
+    ]
+  ) {
+    return ElMessage.warning('您没有此项信息的修改权限')
+  }
   supportRoomBaseDialog.value?.show(item)
 }
 // 添加属性值

@@ -26,6 +26,7 @@
           </template>
         </el-popconfirm>
         <el-icon
+          v-auth="[ButtonPermission.Apartment.Attribute.Label.Add]"
           class="item m-r-10 m-t-5 pointer"
           :size="35"
           color="#567722"
@@ -49,9 +50,10 @@ import {
   deleteLabelInfoById,
   getLabelInfoList,
 } from '@/api/apartmentManagement'
-import { BuildingTypeTypeMap } from '@/enums/constEnums'
+import { BuildingTypeTypeMap, ButtonPermission } from '@/enums/constEnums'
 import SupportLabelDialog from '@/views/apartmentManagement/attributeManagement/components/supportLabelDialog.vue'
 import { ElMessage } from 'element-plus'
+import { useAuthButtons } from '@/hooks/useAuthButtons'
 type SupportLabelInterface = {
   label: string
   value: string
@@ -82,6 +84,13 @@ async function getLabelInfoListHandle() {
 // 删除标签
 const deleteLabelHandle = async (item: LabelInfoInterface) => {
   console.log('删除标签', item)
+  if (
+    !useAuthButtons().BUTTONS.value[
+      ButtonPermission.Apartment.Attribute.Label.Remove
+    ]
+  ) {
+    return ElMessage.warning('您没有此项信息的删除权限')
+  }
   try {
     await deleteLabelInfoById(item.id)
     await getLabelInfoListHandle()
@@ -93,6 +102,13 @@ const deleteLabelHandle = async (item: LabelInfoInterface) => {
 // 编辑标签
 const editLabelHandle = (item: LabelInfoInterface) => {
   console.log('编辑标签', item)
+  if (
+    !useAuthButtons().BUTTONS.value[
+      ButtonPermission.Apartment.Attribute.Label.Update
+    ]
+  ) {
+    return ElMessage.warning('您没有此项信息的修改权限')
+  }
   supportLabelDialog.value?.show(item)
 }
 // 添加标签

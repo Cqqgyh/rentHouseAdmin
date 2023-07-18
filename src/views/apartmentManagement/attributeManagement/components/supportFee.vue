@@ -51,6 +51,7 @@
           </template>
         </el-popconfirm>
         <el-icon
+          v-auth="[ButtonPermission.Apartment.Attribute.Fee.Add]"
           class="item m-r-10 m-t-5 pointer"
           :size="35"
           color="#567722"
@@ -60,7 +61,12 @@
         </el-icon>
       </el-col>
     </el-row>
-    <el-button type="primary" class="m-t-20" @click="addFeeKeyHandle">
+    <el-button
+      v-auth="[ButtonPermission.Apartment.Attribute.Fee.AddNewItem]"
+      type="primary"
+      class="m-t-20"
+      @click="addFeeKeyHandle"
+    >
       添加新属性
     </el-button>
     <!--    信息修改弹窗管理-->
@@ -89,6 +95,8 @@ import {
 import SupportFeeDialog from '@/views/apartmentManagement/attributeManagement/components/supportFeeDialog.vue'
 import { ElMessage } from 'element-plus'
 import SupportFeeAddOrEditAttrDialog from '@/views/apartmentManagement/attributeManagement/components/supportFeeAddOrEditAttrDialog.vue'
+import { ButtonPermission } from '@/enums/constEnums'
+import { useAuthButtons } from '@/hooks/useAuthButtons'
 const supportFeeDialog = ref<InstanceType<typeof SupportFeeDialog>>()
 const supportFeeAddOrEditFeeDialog =
   ref<InstanceType<typeof SupportFeeAddOrEditAttrDialog>>()
@@ -112,6 +120,13 @@ async function getFeeInfoListHandle() {
 // 删除属性值
 const deleteFeeValueHandle = async (item: FeeValueInfoInterface) => {
   console.log('删除', item)
+  if (
+    !useAuthButtons().BUTTONS.value[
+      ButtonPermission.Apartment.Attribute.Fee.Remove
+    ]
+  ) {
+    return ElMessage.warning('您没有此项信息的删除权限')
+  }
   try {
     await deleteFeeValueById(item.id)
     await getFeeInfoListHandle()
@@ -123,6 +138,13 @@ const deleteFeeValueHandle = async (item: FeeValueInfoInterface) => {
 // 编辑属性值
 const editFeeValueHandle = (item: FeeValueInfoInterface) => {
   console.log('编辑', item)
+  if (
+    !useAuthButtons().BUTTONS.value[
+      ButtonPermission.Apartment.Attribute.Fee.Update
+    ]
+  ) {
+    return ElMessage.warning('您没有此项信息的修改权限')
+  }
   supportFeeDialog.value?.show(item)
 }
 // 添加属性值

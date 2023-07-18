@@ -27,6 +27,7 @@
           </template>
         </el-popconfirm>
         <el-icon
+          v-auth="[ButtonPermission.Apartment.Attribute.Facility.Add]"
           class="item m-r-10 m-t-5 pointer"
           :size="35"
           color="#567722"
@@ -50,9 +51,10 @@ import {
   deleteFacilityInfoById,
   getFacilityInfoList,
 } from '@/api/apartmentManagement'
-import { BuildingTypeTypeMap } from '@/enums/constEnums'
+import { BuildingTypeTypeMap, ButtonPermission } from '@/enums/constEnums'
 import SupportFacilityDialog from '@/views/apartmentManagement/attributeManagement/components/supportFacilityDialog.vue'
 import { ElMessage } from 'element-plus'
+import { useAuthButtons } from '@/hooks/useAuthButtons'
 type SupportFacilityInterface = {
   label: string
   value: string
@@ -83,6 +85,13 @@ async function getFacilityInfoListHandle() {
 // 删除配套
 const deleteFacilityHandle = async (item: FacilityInfoInterface) => {
   console.log('删除配套', item)
+  if (
+    !useAuthButtons().BUTTONS.value[
+      ButtonPermission.Apartment.Attribute.Facility.Remove
+    ]
+  ) {
+    return ElMessage.warning('您没有此项信息的删除权限')
+  }
   try {
     await deleteFacilityInfoById(item.id)
     await getFacilityInfoListHandle()
@@ -94,6 +103,13 @@ const deleteFacilityHandle = async (item: FacilityInfoInterface) => {
 // 编辑配套
 const editFacilityHandle = (item: FacilityInfoInterface) => {
   console.log('编辑配套', item)
+  if (
+    !useAuthButtons().BUTTONS.value[
+      ButtonPermission.Apartment.Attribute.Facility.Update
+    ]
+  ) {
+    return ElMessage.warning('您没有此项信息的修改权限')
+  }
   supportFacilityDialog.value?.show(item)
 }
 // 添加配套
