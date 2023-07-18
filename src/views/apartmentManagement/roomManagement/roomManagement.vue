@@ -9,16 +9,31 @@
       :stripe="true"
     >
       <template #tableHeader>
-        <el-button type="primary" icon="Plus" @click="addHandle">
+        <el-button
+          v-auth="[ButtonPermission.Apartment.Room.Add]"
+          type="primary"
+          icon="Plus"
+          @click="addHandle"
+        >
           新增房间
         </el-button>
       </template>
       <!-- 表格操作 -->
       <template #operation="scope">
-        <el-button type="success" icon="Edit" @click="editHandle(scope.row)">
+        <el-button
+          v-auth="[ButtonPermission.Apartment.Room.Update]"
+          type="success"
+          icon="Edit"
+          @click="editHandle(scope.row)"
+        >
           修改
         </el-button>
-        <el-button type="danger" icon="Delete" @click="deleteHandle(scope.row)">
+        <el-button
+          v-auth="[ButtonPermission.Apartment.Room.Remove]"
+          type="danger"
+          icon="Delete"
+          @click="deleteHandle(scope.row)"
+        >
           删除
         </el-button>
       </template>
@@ -47,6 +62,7 @@ import {
   RoomInterface,
 } from '@/api/apartmentManagement/types'
 import {
+  ButtonPermission,
   getLabelByValue,
   RoomCheckInStatus,
   RoomCheckInStatusMap,
