@@ -109,7 +109,10 @@ export function batchSysUser(ids: string[]) {
  */
 export function assignSysUserRoles(params: AssignRolesInterfaceReq) {
   // Post方法传递get参数的方式需要下面这么写
-  return http.post(`/admin/system/sysRole/doAssign`, params)
+  return http.post(
+    `/admin/system/user/updateRoleListById?id=${params.userId}`,
+    params.roleIdList,
+  )
 }
 /**
  * @description 获取后台用户分页列表(带搜索)
@@ -117,8 +120,7 @@ export function assignSysUserRoles(params: AssignRolesInterfaceReq) {
  */
 export function getSysRoleUserList(params: RoleListParamsInterfaceReq) {
   return http.get<PageResponseInterface<Role>>(
-    `/admin/system/sysRole/${params.pageNum}/${params.pageSize}`,
-    { roleName: params.roleName },
+    `/admin/system/role/page?current=${params.pageNum}&size=${params.pageSize}`,
   )
 }
 /**
@@ -127,7 +129,7 @@ export function getSysRoleUserList(params: RoleListParamsInterfaceReq) {
  */
 export function getSysRolePermission(roleId: string | number) {
   return http.get<PageResponseInterface<PermissionListInterfaceRes[]>>(
-    `admin/system/sysMenu/toAssign/${roleId}`,
+    `/admin/system/menu/listAsTreeByRoleId?id=${roleId}`,
   )
 }
 /**
@@ -135,13 +137,17 @@ export function getSysRolePermission(roleId: string | number) {
  * @param data
  */
 export function assignSysRolePermission(data: AssignPermissionInterfaceReq) {
-  return http.post(`/admin/system/sysMenu/doAssign`, data)
+  return http.post(
+    `/admin/system/role/updateMenuListById?id=${data.roleId}`,
+    data.menuIdList,
+  )
 }
 /**
+ * @description 新增角色
  * @param roleData
  */
 export function addSysRole(roleData: Role) {
-  return http.post(`/admin/system/sysRole/save`, roleData)
+  return http.post(`/admin/system/role/saveOrUpdate`, roleData)
 }
 
 /**
@@ -149,7 +155,7 @@ export function addSysRole(roleData: Role) {
  * @param roleData
  */
 export function updateSysRole(roleData: Role) {
-  return http.put(`/admin/system/sysRole/update`, roleData)
+  return http.post(`/admin/system/role/saveOrUpdate`, roleData)
 }
 /**
  * @description 删除角色
@@ -157,7 +163,7 @@ export function updateSysRole(roleData: Role) {
  * @returns {<PageRes<any>>}
  */
 export function deleteSysRole(id: string | number) {
-  return http.delete(`/admin/system/sysRole/remove/${id}`)
+  return http.delete(`/admin/system/role/removeById?id=${id}`)
 }
 /**
  * @description: 批量删除角色

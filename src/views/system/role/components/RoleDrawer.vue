@@ -9,7 +9,7 @@
       <el-form-item label="角色名称">
         <el-input
           disabled
-          v-model="drawerProps.rowData!.roleName"
+          v-model="drawerProps.rowData!.name"
           placeholder="请填写角色名称"
           clearable
         ></el-input>
@@ -81,7 +81,7 @@ const getCheckedIds = (
   initArr: (string | number)[] = [],
 ): (string | number)[] => {
   auths.forEach((item: PermissionListInterfaceRes) => {
-    if (item.select) {
+    if (item.selected) {
       initArr.push(item.id as number)
     }
     if (item.children) {
@@ -100,10 +100,11 @@ const handleSubmit = async () => {
     // 获取selectdKeys
     const checkedKeys = treeRef.value?.getCheckedKeys() || []
     // 获取半选中
-    const halfCheckedKeys = treeRef.value?.getHalfCheckedKeys() || []
+    // const halfCheckedKeys = treeRef.value?.getHalfCheckedKeys() || []
     const params = {
       roleId: drawerProps.value.rowData.id,
-      menuIdList: [...checkedKeys, ...halfCheckedKeys],
+      // menuIdList: [...checkedKeys, ...halfCheckedKeys],
+      menuIdList: checkedKeys,
     }
     loading.value = true
     await drawerProps.value.api!(params)

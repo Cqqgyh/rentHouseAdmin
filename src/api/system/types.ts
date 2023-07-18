@@ -81,9 +81,7 @@ export interface AssignRolesInterfaceReq {
   userId: string
   roleIdList: string[]
 }
-export interface RoleListParamsInterfaceReq extends ReqPage {
-  roleName?: string
-}
+export type RoleListParamsInterfaceReq = ReqPage
 // 权限列表
 export interface PermissionListInterfaceRes {
   children?: PermissionListInterfaceRes[]
@@ -103,7 +101,7 @@ export interface PermissionListInterfaceRes {
   status?: number
   activeMenu?: string
   isHide?: boolean | 0 | 1
-  select?: boolean
+  selected?: boolean
 }
 // 分配权限列表请求
 export interface AssignPermissionInterfaceReq {

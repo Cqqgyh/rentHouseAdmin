@@ -12,16 +12,23 @@
       :rules="rules"
       :model="dialogProps.rowData"
     >
-      <el-form-item label="角色名称" prop="roleName">
+      <el-form-item label="角色名称" prop="name">
         <el-input
-          v-model="dialogProps.rowData!.roleName"
+          v-model.trim="dialogProps.rowData!.name"
           placeholder="请填写角色名称"
           clearable
         ></el-input>
       </el-form-item>
-      <el-form-item label="角色编码" prop="roleCode">
+      <el-form-item label="角色编码" prop="code">
         <el-input
-          v-model="dialogProps.rowData!.roleCode"
+          v-model.trim="dialogProps.rowData!.code"
+          placeholder="请填写角色编码"
+          clearable
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="角色描述" prop="description">
+        <el-input
+          v-model.trim="dialogProps.rowData!.description"
           placeholder="请填写角色编码"
           clearable
         ></el-input>
@@ -36,7 +43,7 @@
   </el-dialog>
 </template>
 
-<script setup lang="ts" name="RoleDialog">
+<script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { ElMessage, FormInstance } from 'element-plus'
 import { Role } from '@/api/system/types'
@@ -47,10 +54,15 @@ interface DialogProps {
   getTableList?: () => Promise<any>
 }
 const rules = reactive({
-  roleName: [
+  name: [
     { required: true, message: '请填写角色名称' },
-    { min: 2, message: '角色名不能小于2位' },
+    { min: 2, message: '角色名称不能小于2位' },
   ],
+  code: [
+    { required: true, message: '请填写角色编码' },
+    { min: 2, message: '角色编码不能小于2位' },
+  ],
+  description: [{ required: true, message: '请填写角色描述' }],
 })
 
 const dialogVisible = ref(false)

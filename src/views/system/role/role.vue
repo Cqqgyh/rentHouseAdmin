@@ -18,6 +18,7 @@
         </el-button>
         <el-button
           v-auth="[ButtonPermission.SysRole.Remove]"
+          v-if="false"
           type="danger"
           icon="Delete"
           plain
@@ -82,18 +83,19 @@ import {
 import { ButtonPermission } from '@/enums/constEnums'
 
 const columns: ColumnProps[] = [
-  { type: 'selection', fixed: 'left', width: 80 },
   { type: 'index', label: '#', width: 80 },
   {
-    prop: 'roleName',
+    prop: 'name',
     label: '角色名称',
-    search: { el: 'input', props: { placeholder: '输入角色名称' } },
   },
   {
-    prop: 'roleCode',
+    prop: 'code',
     label: '角色编码',
   },
-  { prop: 'createTime', label: '创建时间', sortable: true },
+  {
+    prop: 'description',
+    label: '角色描述',
+  },
   { prop: 'operation', label: '操作', fixed: 'right', width: 280 },
 ]
 
@@ -135,7 +137,7 @@ const openDrawer = async (title: string, rowData: Role) => {
 
 // *根据id删除角色
 const handleDelete = async (row: Role) => {
-  await useHandleData(deleteSysRole, row.id, `删除${row.roleName}角色`)
+  await useHandleData(deleteSysRole, row.id, `删除${row.name}角色`)
   proTable.value?.getTableList()
 }
 // *批量删除用户
