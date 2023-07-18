@@ -41,13 +41,6 @@ export const ButtonPermission = {
     Update: 'bnt.sysMenu.update',
     Remove: 'bnt.sysMenu.remove',
   },
-  // 部门管理
-  SysDept: {
-    List: 'bnt.sysDept.list',
-    Add: 'bnt.sysDept.add',
-    Update: 'bnt.sysDept.update',
-    Remove: 'bnt.sysDept.remove',
-  },
   // 岗位管理
   SysPost: {
     List: 'bnt.sysPost.list',
@@ -55,10 +48,79 @@ export const ButtonPermission = {
     Update: 'bnt.sysPost.update',
     Remove: 'bnt.sysPost.remove',
   },
-  // 操作日志
-  SysLog: {
-    OperLogList: 'bnt.sysOperLog.list',
-    LoginLogList: 'bnt.sysLoginLog.list',
+  // 公寓管理
+  Apartment: {
+    //   公寓管理
+    Apartment: {
+      List: 'bnt.apartment.list',
+      Add: 'bnt.apartment.add',
+      Update: 'bnt.apartment.update',
+      Remove: 'bnt.apartment.remove',
+    },
+    //   房间管理
+    Room: {
+      List: 'bnt.room.list',
+      Add: 'bnt.room.add',
+      Update: 'bnt.room.update',
+      Remove: 'bnt.room.remove',
+    },
+    //   属性管理
+    Attribute: {
+      //   配套信息管理
+      Facility: {
+        List: 'bnt.facility.list',
+        Add: 'bnt.facility.add',
+        Update: 'bnt.facility.update',
+        Remove: 'bnt.facility.remove',
+      },
+      //   标签信息管理
+      Label: {
+        List: 'bnt.label.list',
+        Add: 'bnt.label.add',
+        Update: 'bnt.label.update',
+        Remove: 'bnt.label.remove',
+      },
+      //   房间 信息管理
+      RoomInfo: {
+        List: 'bnt.roomInfo.list',
+        Add: 'bnt.roomInfo.add',
+        Update: 'bnt.roomInfo.update',
+        Remove: 'bnt.roomInfo.remove',
+        AddNewItem: 'bnt.roomInfo.AddNewItem',
+      },
+      //   杂费信息管理
+      Fee: {
+        List: 'bnt.fee.list',
+        Add: 'bnt.fee.add',
+        Update: 'bnt.fee.update',
+        Remove: 'bnt.fee.remove',
+        AddNewItem: 'bnt.fee.AddNewItem',
+      },
+    },
+  },
+  //   租赁管理
+  Rent: {
+    //   预约看房
+    Appointment: {
+      List: 'bnt.appointment.list',
+      TakeLook: 'bnt.appointment.TakeLook',
+    },
+    //   租约管理
+    Term: {
+      List: 'bnt.term.list',
+      Add: 'bnt.term.add',
+      Update: 'bnt.term.update',
+      Remove: 'bnt.term.remove',
+      //   取消租约
+      CancelTerm: 'bnt.term.cancelTerm',
+      //   确认退租
+      ConfirmReturnRent: 'bnt.term.confirmReturnRent',
+    },
+  },
+  //   用户管理
+  User: {
+    List: 'bnt.user.list',
+    Update: 'bnt.user.update',
   },
 }
 // 公寓的发布状态
