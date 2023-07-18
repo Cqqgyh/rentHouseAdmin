@@ -68,6 +68,7 @@ import {
   RoomCheckInStatusMap,
   RoomReleaseStatus,
 } from '@/enums/constEnums'
+import { useAuthButtons } from '@/hooks/useAuthButtons'
 const router = useRouter()
 
 // *获取 ProTable 元素，调用其获取刷新数据方法
@@ -236,6 +237,11 @@ const columns: ColumnProps[] = [
           active-value={RoomReleaseStatus.RELEASED}
           inactive-value={RoomReleaseStatus.NOT_RELEASED}
           v-model={row.isRelease}
+          disabled={
+            !useAuthButtons().BUTTONS.value[
+              ButtonPermission.Apartment.Room.Update
+            ]
+          }
           onChange={() =>
             updateRoomReleaseStatus(row.id, row.isRelease as RoomReleaseStatus)
           }
