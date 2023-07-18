@@ -181,9 +181,7 @@ export function batchSysRole(ids: (string | number)[]) {
  * @returns
  */
 export function getSysPermissionList() {
-  return http.get<PermissionListInterfaceRes[]>(
-    `/admin/system/sysMenu/findNodes`,
-  )
+  return http.get<PermissionListInterfaceRes[]>(`/admin/system/menu/listAsTree`)
 }
 // 修改更新权限菜单
 export function updateSysPermission(data: PermissionListInterfaceRes) {
@@ -195,7 +193,7 @@ export function updateSysPermission(data: PermissionListInterfaceRes) {
  * @param data
  */
 export function addSysMenu(data: PermissionListInterfaceRes) {
-  return http.post(`/admin/system/sysMenu/save`, data)
+  return http.post(`/admin/system/menu/saveOrUpdate`, data)
 }
 
 /**
@@ -204,7 +202,7 @@ export function addSysMenu(data: PermissionListInterfaceRes) {
  * @param data
  */
 export function updateSysMenu(data: PermissionListInterfaceRes) {
-  return http.put(`/admin/system/sysMenu/update`, data)
+  return http.post(`/admin/system/menu/saveOrUpdate`, data)
 }
 /**
  * @description 删除菜单
@@ -212,7 +210,7 @@ export function updateSysMenu(data: PermissionListInterfaceRes) {
  * @returns
  */
 export function deleteSysMenu(id: string | number) {
-  return http.delete(`/admin/system/sysMenu/remove/${id}`)
+  return http.delete(`/admin/system/menu/removeById?id=${id}`)
 }
 /**
  * @description 更新部门状态

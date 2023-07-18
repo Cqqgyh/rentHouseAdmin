@@ -139,8 +139,8 @@
       </el-form-item>
       <el-form-item label="是否隐藏" prop="type">
         <el-radio-group v-model="permissionData.isHide">
-          <el-radio :label="0">显示</el-radio>
-          <el-radio :label="1">隐藏</el-radio>
+          <el-radio :label="false">显示</el-radio>
+          <el-radio :label="true">隐藏</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-form>
@@ -162,6 +162,12 @@ import { computed, reactive, ref } from 'vue'
 import { ElMessage, FormInstance } from 'element-plus'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { PermissionListInterfaceRes } from '@/api/system/types'
+// "name": "菜单类型",
+//   "enums": {
+//   "0": "目录",
+//     "1": "菜单",
+//     "2": "按钮"
+// }
 interface DialogProps {
   rowData?: PermissionListInterfaceRes
   api?: (params: any) => Promise<any>

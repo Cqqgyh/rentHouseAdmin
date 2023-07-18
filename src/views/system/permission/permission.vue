@@ -121,7 +121,7 @@ const openDialog = (
   let initRowData = {
     type: 0,
     sortValue: 1,
-    isHide: 0,
+    isHide: false,
     status: 1,
   } as PermissionListInterfaceRes
   initRowData.parentId = rowData.id || 0
