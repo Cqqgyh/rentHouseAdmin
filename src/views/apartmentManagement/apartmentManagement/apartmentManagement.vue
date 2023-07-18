@@ -9,16 +9,31 @@
       :stripe="true"
     >
       <template #tableHeader>
-        <el-button type="primary" icon="Plus" @click="addHandle">
+        <el-button
+          v-auth="[ButtonPermission.Apartment.Apartment.Add]"
+          type="primary"
+          icon="Plus"
+          @click="addHandle"
+        >
           新增公寓
         </el-button>
       </template>
       <!-- 表格操作 -->
       <template #operation="scope">
-        <el-button type="success" icon="Edit" @click="editHandle(scope.row)">
+        <el-button
+          type="success"
+          icon="Edit"
+          v-auth="[ButtonPermission.Apartment.Apartment.Update]"
+          @click="editHandle(scope.row)"
+        >
           修改
         </el-button>
-        <el-button type="danger" icon="Delete" @click="deleteHandle(scope.row)">
+        <el-button
+          v-auth="[ButtonPermission.Apartment.Apartment.Remove]"
+          type="danger"
+          icon="Delete"
+          @click="deleteHandle(scope.row)"
+        >
           删除
         </el-button>
       </template>
@@ -44,7 +59,7 @@ import {
   ApartmentInterface,
   RegionInterface,
 } from '@/api/apartmentManagement/types'
-import { ApartmentReleaseStatus } from '@/enums/constEnums'
+import { ApartmentReleaseStatus, ButtonPermission } from '@/enums/constEnums'
 const router = useRouter()
 
 // *获取 ProTable 元素，调用其获取刷新数据方法
