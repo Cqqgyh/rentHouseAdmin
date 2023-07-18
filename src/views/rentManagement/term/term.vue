@@ -9,19 +9,35 @@
       :stripe="true"
     >
       <template #tableHeader>
-        <el-button type="primary" icon="Plus" @click="addHandle">
+        <el-button
+          v-auth="[ButtonPermission.Rent.Term.Add]"
+          type="primary"
+          icon="Plus"
+          @click="addHandle"
+        >
           新增租约
         </el-button>
       </template>
       <!-- 表格操作 -->
       <template #operation="scope">
-        <el-button type="success" icon="Edit" @click="editHandle(scope.row)">
+        <el-button
+          v-auth="[ButtonPermission.Rent.Term.Update]"
+          type="success"
+          icon="Edit"
+          @click="editHandle(scope.row)"
+        >
           修改
         </el-button>
-        <el-button type="danger" icon="Delete" @click="deleteHandle(scope.row)">
+        <el-button
+          v-auth="[ButtonPermission.Rent.Term.Remove]"
+          type="danger"
+          icon="Delete"
+          @click="deleteHandle(scope.row)"
+        >
           删除
         </el-button>
         <el-button
+          v-auth="[ButtonPermission.Rent.Term.CancelTerm]"
           type="warning"
           icon="Warning"
           v-if="scope.row.status === AgreementStatus.WAITING"
@@ -30,6 +46,7 @@
           取消租约
         </el-button>
         <el-button
+          v-auth="[ButtonPermission.Rent.Term.ConfirmReturnRent]"
           type="danger"
           icon="Warning"
           v-if="scope.row.status === AgreementStatus.TO_BE_CONFIRMED"
@@ -62,6 +79,7 @@ import {
   AgreementSourceMap,
   AgreementStatus,
   AgreementStatusMap,
+  ButtonPermission,
   getLabelByValue,
 } from '@/enums/constEnums'
 import {
