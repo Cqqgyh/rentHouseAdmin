@@ -20,81 +20,81 @@ export function getLabelByValue(
 export const ButtonPermission = {
   // 用户管理
   SysUser: {
-    List: 'bnt.sysUser.list',
-    Add: 'bnt.sysUser.add',
-    Update: 'bnt.sysUser.update',
-    Remove: 'bnt.sysUser.remove',
-    AssignRole: 'bnt.sysUser.assignRole',
+    List: 'btn.sysUser.list',
+    Add: 'btn.sysUser.add',
+    Update: 'btn.sysUser.update',
+    Remove: 'btn.sysUser.remove',
+    AssignRole: 'btn.sysUser.assignRole',
   },
   // 角色管理
   SysRole: {
-    List: 'bnt.sysRole.list',
-    Add: 'bnt.sysRole.add',
-    Update: 'bnt.sysRole.update',
-    Remove: 'bnt.sysRole.remove',
-    AssignAuth: 'bnt.sysRole.assignAuth',
+    List: 'btn.sysRole.list',
+    Add: 'btn.sysRole.add',
+    Update: 'btn.sysRole.update',
+    Remove: 'btn.sysRole.remove',
+    AssignAuth: 'btn.sysRole.assignAuth',
   },
   // 菜单管理
   SysMenu: {
-    List: 'bnt.sysMenu.list',
-    Add: 'bnt.sysMenu.add',
-    Update: 'bnt.sysMenu.update',
-    Remove: 'bnt.sysMenu.remove',
+    List: 'btn.sysMenu.list',
+    Add: 'btn.sysMenu.add',
+    Update: 'btn.sysMenu.update',
+    Remove: 'btn.sysMenu.remove',
   },
   // 岗位管理
   SysPost: {
-    List: 'bnt.sysPost.list',
-    Add: 'bnt.sysPost.add',
-    Update: 'bnt.sysPost.update',
-    Remove: 'bnt.sysPost.remove',
+    List: 'btn.sysPost.list',
+    Add: 'btn.sysPost.add',
+    Update: 'btn.sysPost.update',
+    Remove: 'btn.sysPost.remove',
   },
   // 公寓管理
   Apartment: {
     //   公寓管理
     Apartment: {
-      List: 'bnt.apartment.list',
-      Add: 'bnt.apartment.add',
-      Update: 'bnt.apartment.update',
-      Remove: 'bnt.apartment.remove',
+      List: 'btn.apartment.list',
+      Add: 'btn.apartment.add',
+      Update: 'btn.apartment.update',
+      Remove: 'btn.apartment.remove',
     },
     //   房间管理
     Room: {
-      List: 'bnt.room.list',
-      Add: 'bnt.room.add',
-      Update: 'bnt.room.update',
-      Remove: 'bnt.room.remove',
+      List: 'btn.room.list',
+      Add: 'btn.room.add',
+      Update: 'btn.room.update',
+      Remove: 'btn.room.remove',
     },
     //   属性管理
     Attribute: {
       //   配套信息管理
       Facility: {
-        List: 'bnt.facility.list',
-        Add: 'bnt.facility.add',
-        Update: 'bnt.facility.update',
-        Remove: 'bnt.facility.remove',
+        List: 'btn.facility.list',
+        Add: 'btn.facility.add',
+        Update: 'btn.facility.update',
+        Remove: 'btn.facility.remove',
       },
       //   标签信息管理
       Label: {
-        List: 'bnt.label.list',
-        Add: 'bnt.label.add',
-        Update: 'bnt.label.update',
-        Remove: 'bnt.label.remove',
+        List: 'btn.label.list',
+        Add: 'btn.label.add',
+        Update: 'btn.label.update',
+        Remove: 'btn.label.remove',
       },
       //   房间 信息管理
       RoomInfo: {
-        List: 'bnt.roomInfo.list',
-        Add: 'bnt.roomInfo.add',
-        Update: 'bnt.roomInfo.update',
-        Remove: 'bnt.roomInfo.remove',
-        AddNewItem: 'bnt.roomInfo.AddNewItem',
+        List: 'btn.roomInfo.list',
+        Add: 'btn.roomInfo.add',
+        Update: 'btn.roomInfo.update',
+        Remove: 'btn.roomInfo.remove',
+        AddNewItem: 'btn.roomInfo.AddNewItem',
       },
       //   杂费信息管理
       Fee: {
-        List: 'bnt.fee.list',
-        Add: 'bnt.fee.add',
-        Update: 'bnt.fee.update',
-        Remove: 'bnt.fee.remove',
-        AddNewItem: 'bnt.fee.AddNewItem',
+        List: 'btn.fee.list',
+        Add: 'btn.fee.add',
+        Update: 'btn.fee.update',
+        Remove: 'btn.fee.remove',
+        AddNewItem: 'btn.fee.AddNewItem',
       },
     },
   },
@@ -102,25 +102,25 @@ export const ButtonPermission = {
   Rent: {
     //   预约看房
     Appointment: {
-      List: 'bnt.appointment.list',
-      TakeLook: 'bnt.appointment.TakeLook',
+      List: 'btn.appointment.list',
+      TakeLook: 'btn.appointment.TakeLook',
     },
     //   租约管理
     Term: {
-      List: 'bnt.term.list',
-      Add: 'bnt.term.add',
-      Update: 'bnt.term.update',
-      Remove: 'bnt.term.remove',
+      List: 'btn.term.list',
+      Add: 'btn.term.add',
+      Update: 'btn.term.update',
+      Remove: 'btn.term.remove',
       //   取消租约
-      CancelTerm: 'bnt.term.cancelTerm',
+      CancelTerm: 'btn.term.cancelTerm',
       //   确认退租
-      ConfirmReturnRent: 'bnt.term.confirmReturnRent',
+      ConfirmReturnRent: 'btn.term.confirmReturnRent',
     },
   },
   //   用户管理
   User: {
-    List: 'bnt.user.list',
-    Update: 'bnt.user.update',
+    List: 'btn.user.list',
+    Update: 'btn.user.update',
   },
 }
 // 公寓的发布状态

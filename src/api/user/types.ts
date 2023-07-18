@@ -11,12 +11,18 @@ export interface ValidateUCodeData {
   key: string
 }
 export interface UserRes {
+  // userId?: string
+  // name: string
+  // avatar: string
+  // buttons: string[]
+  // roles: string[]
+  // routers: Menu.MenuOptions[]
   userId?: string
   name: string
-  avatar: string
-  buttons: string[]
+  avatarUrl: string
+  permissionList: string[]
   roles: string[]
-  routers: Menu.MenuOptions[]
+  router: Menu.MenuOptions[]
 }
 /** 用户权限数据类型 */
 export interface AuthInfo {
