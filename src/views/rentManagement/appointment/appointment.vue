@@ -11,6 +11,7 @@
       <!-- 表格操作 -->
       <template #operation="scope">
         <el-button
+          v-auth="[ButtonPermission.Rent.Appointment.TakeLook]"
           :type="
             scope.row.appointmentStatus === AppointmentStatus.WAITING
               ? 'primary'
@@ -45,6 +46,7 @@ import {
   AppointmentStatus,
   getLabelByValue,
   AppointmentStatusMap,
+  ButtonPermission,
 } from '@/enums/constEnums'
 import { AppointmentInfoInterface } from '@/api/rentManagement/types'
 import {
