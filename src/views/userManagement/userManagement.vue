@@ -15,12 +15,13 @@
 import { reactive, ref } from 'vue'
 import { ColumnProps } from '@/components/ProTable/src/types'
 import ProTable from '@/components/ProTable/src/ProTable.vue'
-import { UserStatus, UserStatusMap } from '@/enums/constEnums'
+import { ButtonPermission, UserStatus, UserStatusMap } from '@/enums/constEnums'
 import {
   getUserManagementInfoList,
   updateUserManagementStatus,
 } from '@/api/userManagement'
 import { UserManagementInfoInterface } from '@/api/userManagement/types'
+import { useAuthButtons } from '@/hooks/useAuthButtons'
 
 // *获取 ProTable 元素，调用其获取刷新数据方法
 const proTable = ref<InstanceType<typeof ProTable>>()
@@ -63,6 +64,9 @@ const columns: ColumnProps[] = [
           active-value={UserStatus.NORMAL}
           inactive-value={UserStatus.DISABLED}
           v-model={row.status}
+          disabled={
+            !useAuthButtons().BUTTONS.value[ButtonPermission.User.Update]
+          }
           onChange={() =>
             updateUserManagementStatus(row.id, row.status as UserStatus)
           }
