@@ -252,12 +252,7 @@ export function deleteSysDepartment(id: string | number) {
  */
 export function getSysPostListPaginate(params: SysPostListParamsInterfaceReq) {
   return http.get<PageResponseInterface<PostInterfacesRes[]>>(
-    `/admin/system/sysPost/${params.pageNum}/${params.pageSize}`,
-    {
-      name: params.name,
-      postCode: params.postCode,
-      status: params.status,
-    },
+    `/admin/system/post/page?current=${params.pageNum}&size=${params.pageSize}`,
   )
 }
 /**
@@ -266,7 +261,9 @@ export function getSysPostListPaginate(params: SysPostListParamsInterfaceReq) {
  * @param status
  */
 export function updateSysPostStatus(id: number, status: number) {
-  return http.get(`/admin/system/sysPost/updateStatus/${id}/${status}`)
+  return http.post(
+    `/admin/system/post/updateStatusByPostId?id=${id}&status=${status}`,
+  )
 }
 /**
  * @description 新增部门
@@ -274,7 +271,7 @@ export function updateSysPostStatus(id: number, status: number) {
  * @param data
  */
 export function addSysPost(data: PostInterfacesRes) {
-  return http.post(`/admin/system/sysPost/save`, data)
+  return http.post(`/admin/system/post/saveOrUpdate`, data)
 }
 /**
  * @description 修改更新部门
@@ -282,15 +279,15 @@ export function addSysPost(data: PostInterfacesRes) {
  * @param data
  */
 export function updateSysPost(data: PostInterfacesRes) {
-  return http.put(`/admin/system/sysPost/update`, data)
+  return http.post(`/admin/system/post/saveOrUpdate`, data)
 }
 /**
- * @description 删除部门
+ * @description 删除岗位
  * @param { string } id
  * @returns
  */
 export function deleteSysPostById(id: string | number) {
-  return http.delete(`/admin/system/sysPost/remove/${id}`)
+  return http.delete(`/admin/system/post/deleteById?id=${id}`)
 }
 /**
  * @description 获取后台操作日志列表(带搜索)

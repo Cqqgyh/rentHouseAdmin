@@ -14,16 +14,24 @@
     >
       <el-form-item label="岗位名称" prop="name">
         <el-input
-          v-model="postData.name"
+          v-model.trim="postData.name"
           placeholder="请填写岗位名称"
           clearable
         ></el-input>
       </el-form-item>
       <el-form-item label="岗位编码" prop="postCode">
         <el-input
-          v-model="postData.postCode"
+          v-model.trim="postData.postCode"
           placeholder="请填写岗位编码"
           clearable
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="岗位描述" prop="description">
+        <el-input
+          v-model.trim="postData.description"
+          placeholder="请填写岗位描述"
+          clearable
+          type="textarea"
         ></el-input>
       </el-form-item>
 
@@ -59,7 +67,9 @@ interface DialogProps {
 
 let postData = ref<PostInterfacesRes>({} as PostInterfacesRes)
 const rules = reactive({
-  name: [{ required: true, message: '请填写名称' }],
+  name: [{ required: true, message: '请填写岗位名称' }],
+  postCode: [{ required: true, message: '请填写岗位编码' }],
+  description: [{ required: true, message: '请填写岗位描述' }],
 })
 
 const dialogVisible = ref(false)

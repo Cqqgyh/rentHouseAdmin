@@ -107,14 +107,14 @@ const columns: ColumnProps[] = [
   {
     prop: 'name',
     label: '岗位名称',
-    width: 120,
-    search: { el: 'input', props: { placeholder: '请输入岗位名称' } },
   },
   {
     prop: 'postCode',
     label: '岗位编码',
-    width: 120,
-    search: { el: 'input', props: { placeholder: '请输入岗位编码' } },
+  },
+  {
+    prop: 'description',
+    label: '岗位描述',
   },
   {
     prop: 'status',
@@ -124,10 +124,6 @@ const columns: ColumnProps[] = [
       { label: '正常', value: 1 },
       { label: '停用', value: 0 },
     ],
-    search: {
-      el: 'select',
-      props: { placeholder: '请选择岗位状态', clearable: true },
-    },
     render: ({ row }) => {
       return (
         <el-switch
@@ -142,7 +138,6 @@ const columns: ColumnProps[] = [
       )
     },
   },
-  { prop: 'createTime', label: '创建时间', sortable: true },
   { prop: 'operation', label: '操作', fixed: 'right', width: 280 },
 ]
 </script>
