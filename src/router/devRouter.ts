@@ -26,6 +26,55 @@
 import { RouteRecordRaw } from 'vue-router'
 const LAYOUT = () => import('@/layouts/index.vue')
 export const devRoutes: RouteRecordRaw[] = [
+  // // 系统权限管理
+  {
+    name: 'system',
+    path: '/system',
+    component: LAYOUT,
+    redirect: '/system/user',
+    meta: {
+      title: '系统管理',
+      icon: 'Lock',
+    },
+    children: [
+      {
+        name: 'System/User',
+        path: '/system/user',
+        component: () => import('@/views/system/user/user.vue'),
+        meta: {
+          title: '用户管理',
+          icon: 'UserFilled',
+        },
+      },
+      {
+        name: 'System/Role',
+        path: '/system/role',
+        component: () => import('@/views/system/role/role.vue'),
+        meta: {
+          title: '角色管理',
+          icon: 'Avatar',
+        },
+      },
+      {
+        name: 'System/Permission',
+        path: '/system/permission',
+        component: () => import('@/views/system/permission/permission.vue'),
+        meta: {
+          title: '菜单管理',
+          icon: 'Menu',
+        },
+      },
+      {
+        name: 'System/Post',
+        path: '/system/post',
+        component: () => import('@/views/system/post/post.vue'),
+        meta: {
+          title: '岗位管理',
+          icon: 'Menu',
+        },
+      },
+    ],
+  },
   // 公寓管理
   {
     name: 'apartmentManagement',
@@ -210,203 +259,4 @@ export const devRoutes: RouteRecordRaw[] = [
       },
     ],
   },
-  // // 网站概述
-  // {
-  //   name: 'websiteOverview',
-  //   path: '/websiteOverview',
-  //   component: LAYOUT,
-  //   redirect: '/websiteOverview/websiteOverview',
-  //   meta: {
-  //     title: '网站概述',
-  //     icon: 'Management',
-  //   },
-  //   children: [
-  //     {
-  //       name: 'websiteOverview/websiteOverview',
-  //       path: '/websiteOverview/websiteOverview',
-  //       component: () => import('@/views/websiteOverview/websiteOverview.vue'),
-  //       meta: {
-  //         title: '网站概述',
-  //         icon: 'Management',
-  //       },
-  //     },
-  //   ],
-  // },
-  // // 流量
-  // {
-  //   name: 'websiteTraffic',
-  //   path: '/websiteTraffic',
-  //   component: LAYOUT,
-  //   redirect: '/websiteTraffic/dailyData',
-  //   meta: {
-  //     title: '流量',
-  //     icon: 'TrendCharts',
-  //   },
-  //   children: [
-  //     {
-  //       name: 'websiteTraffic/dailyData',
-  //       path: '/websiteTraffic/dailyData',
-  //       component: () =>
-  //         import('@/views/websiteTraffic/dailyData/dailyData.vue'),
-  //       meta: {
-  //         title: '日流量',
-  //         icon: 'TrendCharts',
-  //       },
-  //     },
-  //     {
-  //       name: 'websiteTraffic/weeklyData',
-  //       path: '/websiteTraffic/weeklyData',
-  //       component: () =>
-  //         import('@/views/websiteTraffic/weeklyData/weeklyData.vue'),
-  //       meta: {
-  //         title: '周流量',
-  //         icon: 'TrendCharts',
-  //       },
-  //     },
-  //     {
-  //       name: 'websiteTraffic/monthlyData',
-  //       path: '/websiteTraffic/monthlyData',
-  //       component: () =>
-  //         import('@/views/websiteTraffic/monthlyData/monthlyData.vue'),
-  //       meta: {
-  //         title: '月流量',
-  //         icon: 'TrendCharts',
-  //       },
-  //     },
-  //   ],
-  // },
-  // // 活跃度
-  // {
-  //   name: 'liveness',
-  //   path: '/liveness',
-  //   component: LAYOUT,
-  //   redirect: '/liveness/activeUserRetain/activeUserRetain',
-  //   meta: {
-  //     title: '活跃度',
-  //     icon: 'DataLine',
-  //   },
-  //   children: [
-  //     {
-  //       name: 'liveness/newUserRetain',
-  //       path: '/liveness/newUserRetain',
-  //       component: () =>
-  //         import('@/views/liveness/newUserRetain/newUserRetain.vue'),
-  //       meta: {
-  //         title: '新增用户留存',
-  //         icon: 'UserFilled',
-  //       },
-  //     },
-  //     {
-  //       name: 'liveness/activeUserRetain',
-  //       path: '/liveness/activeUserRetain',
-  //       component: () =>
-  //         import('@/views/liveness/activeUserRetain/activeUserRetain.vue'),
-  //       meta: {
-  //         title: '活跃用户留存',
-  //         icon: 'Stamp',
-  //       },
-  //     },
-  //   ],
-  // },
-  // // 产品黏性
-  // {
-  //   name: 'productStickiness',
-  //   path: '/productStickiness',
-  //   component: LAYOUT,
-  //   redirect: '/productStickiness/productStickiness',
-  //   meta: {
-  //     title: '产品黏性',
-  //     icon: 'MagicStick',
-  //   },
-  //   children: [
-  //     {
-  //       name: 'productStickiness/productStickiness',
-  //       path: '/productStickiness/productStickiness',
-  //       component: () =>
-  //         import(
-  //           '@/views/productStickiness/productStickiness/productStickiness.vue'
-  //         ),
-  //       meta: {
-  //         title: '产品黏性',
-  //         icon: 'MagicStick',
-  //       },
-  //     },
-  //   ],
-  // },
-  // // 来源分析
-  // {
-  //   name: 'sourceAnalysis',
-  //   path: '/sourceAnalysis',
-  //   component: LAYOUT,
-  //   redirect: '/sourceAnalysis/sourceAnalysis',
-  //   meta: {
-  //     title: '来源分析',
-  //     icon: 'ScaleToOriginal',
-  //   },
-  //   children: [
-  //     {
-  //       name: 'sourceAnalysis/sourceAnalysis',
-  //       path: '/sourceAnalysis/sourceAnalysis',
-  //       component: () =>
-  //         import('@/views/sourceAnalysis/sourceAnalysis/sourceAnalysis.vue'),
-  //       meta: {
-  //         title: '来源分析',
-  //         icon: 'ScaleToOriginal',
-  //       },
-  //     },
-  //   ],
-  // },
-  // // 用户分析
-  // {
-  //   name: 'userAnalysis',
-  //   path: '/userAnalysis',
-  //   component: LAYOUT,
-  //   redirect: '/userAnalysis/userPortrait',
-  //   meta: {
-  //     title: '用户分析',
-  //     icon: 'DataAnalysis',
-  //   },
-  //   children: [
-  //     {
-  //       name: 'userAnalysis/userPortrait',
-  //       path: '/userAnalysis/userPortrait',
-  //       component: () =>
-  //         import('@/views/userAnalysis/userPortrait/userPortrait.vue'),
-  //       meta: {
-  //         title: '用户画像',
-  //         icon: 'User',
-  //       },
-  //     },
-  //     {
-  //       name: 'userAnalysis/mainFeatures',
-  //       path: '/userAnalysis/mainFeatures',
-  //       component: () =>
-  //         import('@/views/userAnalysis/mainFeatures/mainFeatures.vue'),
-  //       meta: {
-  //         title: '主要功能',
-  //         icon: 'Document',
-  //       },
-  //     },
-  //     {
-  //       name: 'userAnalysis/hotFeatures',
-  //       path: '/userAnalysis/hotFeatures',
-  //       component: () =>
-  //         import('@/views/userAnalysis/hotFeatures/hotFeatures.vue'),
-  //       meta: {
-  //         title: '热门功能',
-  //         icon: 'DocumentRemove',
-  //       },
-  //     },
-  //     {
-  //       name: 'userAnalysis/pageAnalysis',
-  //       path: '/userAnalysis/pageAnalysis',
-  //       component: () =>
-  //         import('@/views/userAnalysis/pageAnalysis/pageAnalysis.vue'),
-  //       meta: {
-  //         title: '页面分析',
-  //         icon: 'Reading',
-  //       },
-  //     },
-  //   ],
-  // },
 ]
