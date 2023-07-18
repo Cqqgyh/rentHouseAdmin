@@ -464,7 +464,7 @@ async function getAttrInfoListHandle() {
         children: item.attrValueList.map((child) => {
           return {
             value: child.id,
-            label: child.name,
+            label: `${child.name}(${item.name})`,
             parentId: item.id + item.name,
           }
         }),

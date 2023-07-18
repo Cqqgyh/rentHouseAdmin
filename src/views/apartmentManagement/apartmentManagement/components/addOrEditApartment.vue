@@ -458,7 +458,7 @@ async function getFeeInfoListHandle() {
         children: item.feeValueList.map((child) => {
           return {
             value: child.id,
-            label: child.name + child.unit,
+            label: `${child.name} ${child.unit}(${item.name})`,
             parentId: item.id + item.name,
           }
         }),
