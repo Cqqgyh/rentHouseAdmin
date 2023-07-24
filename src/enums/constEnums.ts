@@ -103,6 +103,13 @@ export const ButtonPermission = {
         Update: 'btn.term.update',
         Remove: 'btn.term.remove',
       },
+      //   支付方式管理
+      Payment: {
+        List: 'btn.payment.list',
+        Add: 'btn.payment.add',
+        Update: 'btn.payment.update',
+        Remove: 'btn.payment.remove',
+      },
     },
   },
   //   租赁管理

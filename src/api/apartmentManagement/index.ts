@@ -185,6 +185,21 @@ export function getAttrInfoList() {
 export function getPaymentList() {
   return http.get<PaymentInfoInterface[]>(`/admin/payment/list`)
 }
+
+/**
+ * @description 保存或更新支付方式
+ */
+export function saveOrUpdatePayment(params: PaymentInfoInterface) {
+  return http.post(`/admin/payment/saveOrUpdate`, params)
+}
+
+/**
+ * @description 根据id删除支付方式
+ * @param id
+ */
+export function deletePaymentById(id: number | string) {
+  return http.delete(`/admin/payment/deleteById?id=${id}`)
+}
 /**
  * @description 查询租期列表
  */

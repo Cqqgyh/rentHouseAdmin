@@ -171,9 +171,9 @@ export interface AttrValueInfoInterface {
 }
 // 支付方式信息列表
 export interface PaymentInfoInterface {
-  id: number
+  id: number | string
   name: string
-  payMonthCount: string
+  payMonthCount: string | number
   additionalInfo: string
 }
 // 租期信息列表
