@@ -178,7 +178,7 @@ export interface PaymentInfoInterface {
 }
 // 租期信息列表
 export interface TermInfoInterface {
-  id: number
+  id: number | string
   unit: string
   monthCount: string
 }

@@ -191,6 +191,20 @@ export function getPaymentList() {
 export function getTermList() {
   return http.get<TermInfoInterface[]>(`/admin/term/list`)
 }
+
+/**
+ * @description 保存或更新租期信息
+ */
+export function saveOrUpdateTerm(params: TermInfoInterface) {
+  return http.post(`/admin/term/saveOrUpdate`, params)
+}
+
+/**
+ * @description 根据id删除租期信息
+ */
+export function deleteTermById(id: number | string) {
+  return http.delete(`/admin/term/deleteById?id=${id}`)
+}
 //#endregion
 //#region <属性>
 /**

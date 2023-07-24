@@ -96,6 +96,13 @@ export const ButtonPermission = {
         Remove: 'btn.fee.remove',
         AddNewItem: 'btn.fee.AddNewItem',
       },
+      //   租期管理
+      Term: {
+        List: 'btn.term.list',
+        Add: 'btn.term.add',
+        Update: 'btn.term.update',
+        Remove: 'btn.term.remove',
+      },
     },
   },
   //   租赁管理

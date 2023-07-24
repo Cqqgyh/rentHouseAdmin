@@ -8,6 +8,8 @@
     <SupportRoomBase class="m-t-20"></SupportRoomBase>
     <!--    杂费信息管理-->
     <SupportFee class="m-t-20"></SupportFee>
+    <!--    租期管理-->
+    <SupportTerm class="m-t-20"></SupportTerm>
   </el-card>
 </template>
 
@@ -16,4 +18,5 @@ import SupportFacility from '@/views/apartmentManagement/attributeManagement/com
 import SupportLabel from '@/views/apartmentManagement/attributeManagement/components/supportLabel.vue'
 import SupportRoomBase from '@/views/apartmentManagement/attributeManagement/components/supportRoomBase.vue'
 import SupportFee from '@/views/apartmentManagement/attributeManagement/components/supportFee.vue'
+import SupportTerm from '@/views/apartmentManagement/attributeManagement/components/supportTerm.vue'
 </script>
