@@ -112,7 +112,7 @@ export interface RoomInterface {
   apartmentId: number | string
   isRelease: string | number
   leaseEndDate: string
-  checkInStatus: string
+  isCheckIn: boolean
   apartmentInfo: Omit<ApartmentInterface, 'totalRoomCount' | 'freeRoomCount'>
   // 	属性信息列表
   attrValueVoList?: any[]

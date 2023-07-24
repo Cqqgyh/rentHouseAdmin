@@ -6,12 +6,13 @@
  * @FilePath: \listen-to-books-admin\src\enums\constEnums.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
+
 export function getLabelByValue(
   arr: {
     label: string
-    value: string | number
+    value: string | number | boolean
   }[],
-  value: string | number,
+  value: string | number | boolean,
 ): string {
   const item = arr.find((item) => item.value === value)
   return item ? item.label : ''
@@ -157,10 +158,10 @@ export const RoomReleaseStatusMap = [
   { label: '已发布', value: RoomReleaseStatus.RELEASED },
 ]
 // 房间的入住状态
-export enum RoomCheckInStatus {
-  NOT_CHECK_IN = '未入住',
-  CHECK_IN = '已入住',
-}
+export const RoomCheckInStatus = {
+  NOT_CHECK_IN: false,
+  CHECK_IN: true,
+} as const
 export const RoomCheckInStatusMap = [
   { label: '未入住', value: RoomCheckInStatus.NOT_CHECK_IN },
   { label: '已入住', value: RoomCheckInStatus.CHECK_IN },

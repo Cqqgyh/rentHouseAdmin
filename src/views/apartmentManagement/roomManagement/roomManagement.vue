@@ -214,16 +214,16 @@ const columns: ColumnProps[] = [
   { prop: 'apartmentInfo.districtName', label: '所处区域' },
   { prop: 'apartmentInfo.name', label: '所处公寓' },
   {
-    prop: 'checkInStatus',
+    prop: 'isCheckIn',
     label: '入住状态',
     render: ({ row }: { row: RoomInterface }) => {
-      return row.checkInStatus === RoomCheckInStatus.NOT_CHECK_IN ? (
+      return row.isCheckIn === RoomCheckInStatus.NOT_CHECK_IN ? (
         <el-tag type="info">
-          {getLabelByValue(RoomCheckInStatusMap, row.checkInStatus)}
+          {getLabelByValue(RoomCheckInStatusMap, row.isCheckIn)}
         </el-tag>
       ) : (
         <el-tag type="success">
-          {getLabelByValue(RoomCheckInStatusMap, row.checkInStatus)}
+          {getLabelByValue(RoomCheckInStatusMap, row.isCheckIn)}
         </el-tag>
       )
     },
