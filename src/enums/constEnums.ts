@@ -130,6 +130,8 @@ export const ButtonPermission = {
       CancelTerm: 'btn.term.cancelTerm',
       //   确认退租
       ConfirmReturnRent: 'btn.term.confirmReturnRent',
+      //   确认续约
+      ConfirmRenew: 'btn.term.confirmRenew',
     },
   },
   //   用户管理

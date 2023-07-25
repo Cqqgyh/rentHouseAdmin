@@ -37,6 +37,15 @@
           删除
         </el-button>
         <el-button
+          v-auth="[ButtonPermission.Rent.Term.ConfirmRenew]"
+          type="warning"
+          icon="Warning"
+          v-if="scope.row.status === AgreementStatus.RENEW_TO_BE_CONFIRMED"
+          @click="confirmLeaseHandle(scope.row)"
+        >
+          确认续约
+        </el-button>
+        <el-button
           v-auth="[ButtonPermission.Rent.Term.CancelTerm]"
           type="warning"
           icon="Warning"
@@ -281,6 +290,12 @@ const columns: ColumnProps[] = [
               {getLabelByValue(AgreementStatusMap, row.status)}
             </el-tag>
           )
+        case AgreementStatus.RENEW_TO_BE_CONFIRMED:
+          return (
+            <el-tag type="warning">
+              {getLabelByValue(AgreementStatusMap, row.status)}
+            </el-tag>
+          )
         case AgreementStatus.SIGNED:
           return (
             <el-tag type="success">
@@ -470,6 +485,16 @@ const cancelLeaseHandle = async (row: AgreementInfoInterface) => {
     updateAgreementStatusById,
     { id: row.id, status: AgreementStatus.CANCELLED },
     `取消租约`,
+  )
+  // 修改row
+  proTable.value?.getTableList()
+}
+// 确认续约
+const confirmLeaseHandle = async (row: AgreementInfoInterface) => {
+  await useHandleData(
+    updateAgreementStatusById,
+    { id: row.id, status: AgreementStatus.SIGNED },
+    `确认续约`,
   )
   // 修改row
   proTable.value?.getTableList()
