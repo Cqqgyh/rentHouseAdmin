@@ -15,7 +15,7 @@
       <el-form-item label="用户名" prop="username">
         <el-input
           :disabled="drawerProps.title === '分配角色'"
-          v-model="drawerProps.rowData!.username"
+          v-model.trim="drawerProps.rowData!.username"
           placeholder="请填写用户姓名"
           clearable
         ></el-input>
@@ -26,7 +26,7 @@
         v-if="drawerProps.title === '新增'"
       >
         <el-input
-          v-model="drawerProps.rowData!.password"
+          v-model.trim="drawerProps.rowData!.password"
           placeholder="请填写用户密码"
           clearable
         ></el-input>
@@ -37,7 +37,7 @@
         v-if="drawerProps.title !== '分配角色'"
       >
         <el-input
-          v-model="drawerProps.rowData!.name"
+          v-model.trim="drawerProps.rowData!.name"
           placeholder="请填写用户昵称"
           clearable
         ></el-input>
@@ -48,7 +48,7 @@
         v-if="drawerProps.title !== '分配角色'"
       >
         <el-input
-          v-model="drawerProps.rowData!.phone"
+          v-model.trim="drawerProps.rowData!.phone"
           placeholder="请填写用户手机"
           clearable
         ></el-input>
@@ -126,9 +126,15 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import { CheckboxValueType, ElMessage, FormInstance } from 'element-plus'
+import {
+  CheckboxValueType,
+  ElMessage,
+  FormInstance,
+  FormRules,
+} from 'element-plus'
 import { DeptInterfacesRes, PostInterfacesRes, Role } from '@/api/system/types'
 import { SystemUserTypeMap } from '@/enums/constEnums'
+import { checkUserNameAvailable } from '@/api/system'
 interface DrawerProps {
   title: string
   rowData?: any
@@ -145,11 +151,34 @@ interface RolesState {
   checkAll: boolean
   isIndeterminate: boolean
 }
-
-const rules = reactive({
+const checkUserName = async (rule: any, value: any, callback: any) => {
+  if (!value) {
+    return callback(new Error('请输入用户名'))
+  }
+  if (value.length < 4) {
+    return callback(new Error('用户名不能小于4位'))
+  }
+  if (value.length > 20) {
+    return callback(new Error('用户名不能大于20位'))
+  }
+  try {
+    const { data } = await checkUserNameAvailable(value)
+    if (!data) {
+      return callback(new Error('用户名已存在'))
+    }
+    callback()
+  } catch (error) {
+    console.error(error)
+    callback(new Error('用户名校验失败'))
+  }
+}
+const rules = reactive<FormRules>({
   username: [
-    { required: true, message: '请填写用户名', trigger: 'blur' },
-    { min: 4, message: '用户名不能小于4位' },
+    {
+      required: true,
+      validator: checkUserName as unknown as () => void,
+      trigger: 'blur',
+    },
   ],
   password: [
     { required: true, message: '请填写用户密码', trigger: 'blur' },

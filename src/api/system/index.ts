@@ -318,3 +318,12 @@ export function getSysLoginLogList(params: SysLoginLogListParamsInterfaceReq) {
     },
   )
 }
+
+/**
+ * @description 判断用户名是否可用
+ */
+export function checkUserNameAvailable(username: string) {
+  return http.get<boolean>(
+    `/admin/system/user/isUserNameAvailable?username=${username}`,
+  )
+}
