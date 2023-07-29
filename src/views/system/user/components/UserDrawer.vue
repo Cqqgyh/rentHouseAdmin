@@ -135,6 +135,8 @@ import {
 import { DeptInterfacesRes, PostInterfacesRes, Role } from '@/api/system/types'
 import { SystemUserTypeMap } from '@/enums/constEnums'
 import { checkUserNameAvailable } from '@/api/system'
+// 传入进来的最初的数据
+const origiinRowData = ref<any>({})
 interface DrawerProps {
   title: string
   rowData?: any
@@ -160,6 +162,10 @@ const checkUserName = async (rule: any, value: any, callback: any) => {
   }
   if (value.length > 20) {
     return callback(new Error('用户名不能大于20位'))
+  }
+  // 新值和原始值相同，不需要校验
+  if (value === origiinRowData.value.username) {
+    return callback()
   }
   try {
     const { data } = await checkUserNameAvailable(value)
@@ -226,6 +232,8 @@ const handleCheckedChange = (value: CheckboxValueType[]) => {
 
 // 接收父组件传过来的参数
 const acceptParams = (params: DrawerProps): void => {
+  // 保存初始值
+  origiinRowData.value = JSON.parse(JSON.stringify(params.rowData))
   if (params.title === '分配角色') {
     const { list } = params
     state.allRolesList = list.data
