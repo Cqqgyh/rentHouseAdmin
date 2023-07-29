@@ -7,7 +7,7 @@
   >
     <el-form
       ref="ruleFormRef"
-      label-width="100px"
+      label-width="120px"
       label-suffix=" :"
       :rules="rules"
       :model="drawerProps.rowData"
@@ -21,13 +21,24 @@
         ></el-input>
       </el-form-item>
       <el-form-item
-        label="用户密码"
+        :label="drawerProps.title === '编辑' ? '修改用户密码' : '用户密码'"
         prop="password"
-        v-if="drawerProps.title === '新增'"
+        v-if="drawerProps.title === '新增' || drawerProps.title === '编辑'"
       >
         <el-input
           v-model.trim="drawerProps.rowData!.password"
           placeholder="请填写用户密码"
+          clearable
+        ></el-input>
+      </el-form-item>
+      <el-form-item
+        label="确认密码"
+        prop="confirmPassword"
+        v-if="drawerProps.title === '编辑'"
+      >
+        <el-input
+          v-model.trim="drawerProps.rowData!.confirmPassword"
+          placeholder="请再次填写用户密码"
           clearable
         ></el-input>
       </el-form-item>
@@ -125,7 +136,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import {
   CheckboxValueType,
   ElMessage,
@@ -153,6 +164,14 @@ interface RolesState {
   checkAll: boolean
   isIndeterminate: boolean
 }
+
+// drawer框状态
+const drawerVisible = ref(false)
+const drawerProps = ref<DrawerProps>({
+  title: '',
+})
+
+const loading = ref<boolean>(false)
 const checkUserName = async (rule: any, value: any, callback: any) => {
   if (!value) {
     return callback(new Error('请输入用户名'))
@@ -178,6 +197,14 @@ const checkUserName = async (rule: any, value: any, callback: any) => {
     callback(new Error('用户名校验失败'))
   }
 }
+const checkConfirmPassword = async (rule: any, value: any, callback: any) => {
+  // 新值和原始值相同，不需要校验
+  if (value === drawerProps.value.rowData?.password) {
+    return callback()
+  } else {
+    return callback(new Error('两次输入密码不一致'))
+  }
+}
 const rules = reactive<FormRules>({
   username: [
     {
@@ -187,22 +214,33 @@ const rules = reactive<FormRules>({
     },
   ],
   password: [
-    { required: true, message: '请填写用户密码', trigger: 'blur' },
+    {
+      required: true,
+      message: '请填写用户密码',
+      trigger: 'blur',
+    },
     { min: 6, message: '密码不能小于6位' },
+  ],
+  confirmPassword: [
+    {
+      validator: checkConfirmPassword as unknown as () => void,
+      trigger: 'blur',
+    },
   ],
   name: [{ required: true, message: '请填写用户昵称', trigger: 'blur' }],
   phone: [{ required: true, message: '请填写用户手机', trigger: 'blur' }],
   postId: [{ required: true, message: '请选择所属岗位', trigger: 'change' }],
   type: [{ required: true, message: '请选择用户类型', trigger: 'change' }],
 })
-
-// drawer框状态
-const drawerVisible = ref(false)
-const drawerProps = ref<DrawerProps>({
-  title: '',
-})
-
-const loading = ref<boolean>(false)
+watch(
+  drawerProps,
+  (newVal) => {
+    if (newVal) {
+      ;(rules as any).password[0].required = newVal.title === '新增'
+    }
+  },
+  { immediate: true, deep: true },
+)
 
 // 角色选择状态管理
 const state: RolesState = reactive({
@@ -234,6 +272,11 @@ const handleCheckedChange = (value: CheckboxValueType[]) => {
 const acceptParams = (params: DrawerProps): void => {
   // 保存初始值
   origiinRowData.value = JSON.parse(JSON.stringify(params.rowData))
+  // 如果是编辑，需要把密码置空，新增确认密码字段
+  if (params.title === '编辑') {
+    params.rowData.password = ''
+    params.rowData.confirmPassword = ''
+  }
   if (params.title === '分配角色') {
     const { list } = params
     state.allRolesList = list.data
@@ -249,6 +292,7 @@ const acceptParams = (params: DrawerProps): void => {
 const ruleFormRef = ref<FormInstance>()
 const handleSubmit = () => {
   ruleFormRef.value!.validate(async (valid) => {
+    console.log('valid', valid)
     if (!valid) return
     try {
       loading.value = true
