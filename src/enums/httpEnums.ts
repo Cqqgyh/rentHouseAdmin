@@ -6,11 +6,19 @@
  * @argument TIMEOUT  请求超时
  * @argument TYPE     请求类型
  */
-export enum ResultEnum {
-  SUCCESS = 200,
-  EXPIRE = 203,
-  ERROR = -1,
-  ERRMESSAGE = '请求失败',
-  TIMEOUT = 25000,
-  TYPE = 'success',
-}
+// export enum ResultEnum {
+//   SUCCESS = 200,
+//   EXPIRE = 203,
+//   ERROR = -1,
+//   ERRMESSAGE = '请求失败',
+//   TIMEOUT = 25000,
+//   TYPE = 'success',
+// }
+export const ResultEnum = {
+  SUCCESS: 200,
+  EXPIRE: [305, 601, 602],
+  ERROR: -1,
+  ERRMESSAGE: '请求失败',
+  TIMEOUT: 25000,
+  TYPE: 'success',
+} as const
