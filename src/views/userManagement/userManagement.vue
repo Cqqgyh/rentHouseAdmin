@@ -56,7 +56,7 @@ const columns: ColumnProps[] = [
     enum: UserStatusMap,
     search: {
       el: 'select',
-      props: { placeholder: '请输入手机号' },
+      props: { placeholder: '请选择帐号状态' },
     },
     render: ({ row }: { row: UserManagementInfoInterface }) => {
       return (
