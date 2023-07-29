@@ -85,11 +85,11 @@ export default defineComponent({
 
     // 添加当前路由
     const addTags = () => {
-      const { name } = route
+      const { name, path } = route
       if (name === 'Login') {
         return
       }
-      if (name) {
+      if (name || path) {
         tabsBarStore.addView(route as unknown as RouteRecordRaw)
       }
       return false
