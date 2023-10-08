@@ -1,7 +1,7 @@
 /*
- * @Author: 朽木白
+ * @Author: 浅笑
  * @Date: 2023-02-24 11:28:38
- * @LastEditors: 1547702880@@qq.com
+ * @LastEditors: 945327638@qq.com
  * @LastEditTime: 2023-02-28 23:16:42
  * @Description: 用户权限store
  */

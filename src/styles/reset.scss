@@ -1,7 +1,7 @@
 /*
- * @Author: 朽木白
+ * @Author: 浅笑
  * @Date: 2023-02-06 14:09:57
- * @LastEditors: 1547702880@@qq.com
+ * @LastEditors: 945327638@qq.com
  * @LastEditTime: 2023-02-28 16:18:12
  * @Description: 样式重置
  */
@@ -60,9 +60,9 @@ h1 {
  */
 
 hr {
-  overflow: visible; /* 2 */
-  height: 0; /* 1 */
   box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
 }
 
 /**
@@ -71,8 +71,8 @@ hr {
  */
 
 pre {
-  font-size: 1em; /* 2 */
   font-family: monospace; /* 1 */
+  font-size: 1em; /* 2 */
 }
 
 /* Text-level semantics
@@ -115,8 +115,8 @@ strong {
 code,
 kbd,
 samp {
-  font-size: 1em; /* 2 */
   font-family: monospace; /* 1 */
+  font-size: 1em; /* 2 */
 }
 
 /**
@@ -173,8 +173,8 @@ optgroup,
 select,
 textarea {
   margin: 0; /* 2 */
-  font-size: 100%; /* 1 */
   font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
 }
 
@@ -250,12 +250,12 @@ fieldset {
  */
 
 legend {
-  display: table; /* 1 */
-  padding: 0; /* 3 */
-  max-width: 100%; /* 1 */
-  white-space: normal; /* 1 */
-  color: inherit; /* 2 */
   box-sizing: border-box; /* 1 */
+  display: table; /* 1 */
+  max-width: 100%; /* 1 */
+  padding: 0; /* 3 */
+  color: inherit; /* 2 */
+  white-space: normal; /* 1 */
 }
 
 /**
